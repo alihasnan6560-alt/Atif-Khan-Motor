@@ -1,0 +1,752 @@
+/* =========================================================
+   ADMIN PANEL
+   Atif Khan Motors — Luxury Dark Showroom Theme
+   ========================================================= */
+
+.admin-panel {
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  padding: 50px 30px 80px;
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(32, 115, 220, 0.16),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      #030914 0%,
+      #071321 48%,
+      #02060c 100%
+    );
+
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle background glow */
+.admin-panel::before {
+  content: "";
+  position: absolute;
+  top: 100px;
+  left: -180px;
+
+  width: 420px;
+  height: 420px;
+
+  background: rgba(30, 120, 255, 0.07);
+  filter: blur(100px);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.admin-panel::after {
+  content: "";
+  position: absolute;
+  right: -180px;
+  bottom: 100px;
+
+  width: 400px;
+  height: 400px;
+
+  background: rgba(20, 90, 190, 0.06);
+  filter: blur(100px);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.admin-title {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+  margin: 0 auto 40px;
+
+  text-align: center;
+
+  font-size: 2.15rem;
+  line-height: 1.2;
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 20px rgba(72, 164, 255, 0.15);
+}
+
+.admin-title::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 3px;
+
+  margin: 14px auto 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #1976e8,
+    #69b4ff
+  );
+
+  box-shadow:
+    0 0 15px rgba(55, 155, 255, 0.35);
+}
+
+/* =========================================================
+   LOGOUT BUTTON
+   ========================================================= */
+
+.logout-btn {
+  position: fixed;
+  top: 24px;
+  right: 25px;
+
+  z-index: 1000;
+
+  padding: 10px 18px;
+
+  border: 1px solid rgba(255, 100, 100, 0.2);
+  border-radius: 10px;
+
+  background: rgba(180, 35, 45, 0.14);
+
+  color: #ff9c9c;
+
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+
+  background: rgba(220, 45, 55, 0.22);
+
+  border-color: rgba(255, 100, 100, 0.4);
+
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(255, 70, 70, 0.08);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.notification {
+  position: fixed;
+  top: 78px;
+  right: 25px;
+
+  z-index: 9999;
+
+  min-width: 220px;
+  max-width: calc(100vw - 40px);
+
+  padding: 13px 18px;
+
+  border-radius: 12px;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  color: #ffffff;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.35);
+
+  animation: notificationIn 0.35s ease-out;
+}
+
+.notification.success {
+  background: rgba(22, 145, 83, 0.88);
+  border: 1px solid rgba(100, 255, 170, 0.2);
+}
+
+.notification.error {
+  background: rgba(190, 40, 50, 0.9);
+  border: 1px solid rgba(255, 130, 130, 0.2);
+}
+
+@keyframes notificationIn {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================================
+   CAR FORM
+   ========================================================= */
+
+.car-form {
+  position: relative;
+  z-index: 2;
+
+  width: min(500px, 100%);
+  margin: 0 auto 55px;
+
+  box-sizing: border-box;
+
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 34, 55, 0.92),
+      rgba(5, 13, 24, 0.96)
+    );
+
+  border: 1px solid rgba(77, 163, 255, 0.16);
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.38),
+    0 0 35px rgba(30, 120, 255, 0.05);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  animation: formFadeIn 0.55s ease-out;
+}
+
+.car-form::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 15%;
+
+  width: 70%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #3d9cff,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   FORM INPUTS
+   ========================================================= */
+
+.car-form input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 14px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 11px;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.045);
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.92rem;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.car-form input::placeholder {
+  color: rgba(255, 255, 255, 0.43);
+}
+
+.car-form input:hover {
+  background: rgba(255, 255, 255, 0.065);
+  border-color: rgba(77, 163, 255, 0.2);
+}
+
+.car-form input:focus {
+  background: rgba(255, 255, 255, 0.075);
+
+  border-color: rgba(70, 160, 255, 0.6);
+
+  box-shadow:
+    0 0 0 3px rgba(50, 145, 255, 0.07),
+    0 0 20px rgba(50, 145, 255, 0.08);
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   ADD / UPDATE BUTTON
+   ========================================================= */
+
+.car-form button {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+
+  padding: 14px 18px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #1677e8,
+    #3198ff
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(22, 119, 232, 0.18);
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.car-form button:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 14px 32px rgba(22, 119, 232, 0.28),
+    0 0 20px rgba(49, 152, 255, 0.1);
+}
+
+.car-form button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   CARS SECTION TITLE
+   ========================================================= */
+
+.cars-title {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+  margin: 0 auto 25px;
+
+  text-align: center;
+
+  font-size: 1.7rem;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  letter-spacing: 0.4px;
+}
+
+/* =========================================================
+   CARS GRID
+   ========================================================= */
+
+.cars-grid {
+  position: relative;
+  z-index: 2;
+
+  width: min(1200px, 100%);
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+
+  gap: 24px;
+
+  padding: 10px 0;
+}
+
+/* =========================================================
+   ADMIN CAR CARD
+   ========================================================= */
+
+.car-card {
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 35, 57, 0.94),
+      rgba(6, 14, 25, 0.97)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 17px;
+
+  text-align: center;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.3);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(70, 160, 255, 0.25);
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(40, 140, 255, 0.06);
+}
+
+/* =========================================================
+   CARD IMAGE
+   ========================================================= */
+
+.car-card img {
+  display: block;
+
+  width: 100%;
+  height: 180px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  margin-bottom: 14px;
+
+  background: #08111e;
+}
+
+/* =========================================================
+   CARD TEXT
+   ========================================================= */
+
+.car-card h3 {
+  margin: 8px 0 6px;
+
+  color: #ffffff;
+
+  font-size: 1.08rem;
+  line-height: 1.4;
+
+  font-weight: 650;
+}
+
+.car-card p {
+  margin: 0 0 14px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   CARD ACTIONS
+   ========================================================= */
+
+.car-actions {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn {
+  flex: 1 1 100px;
+
+  padding: 9px 13px;
+
+  border: none;
+  border-radius: 9px;
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Edit */
+.edit-btn {
+  background: linear-gradient(
+    135deg,
+    #1677e8,
+    #3b9cff
+  );
+
+  box-shadow:
+    0 6px 16px rgba(22, 119, 232, 0.15);
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 9px 22px rgba(22, 119, 232, 0.22);
+}
+
+/* Delete */
+.delete-btn {
+  background: linear-gradient(
+    135deg,
+    #b92f3c,
+    #e04d5a
+  );
+
+  box-shadow:
+    0 6px 16px rgba(200, 45, 60, 0.14);
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 9px 22px rgba(220, 55, 70, 0.2);
+}
+
+.edit-btn:active,
+.delete-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
+
+.preview-img {
+  display: block;
+
+  width: 100%;
+  height: 180px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  margin-top: 2px;
+
+  background: #08111e;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading-text {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  margin: 35px 0;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .admin-panel {
+    padding: 45px 20px 70px;
+  }
+
+  .admin-title {
+    font-size: 1.95rem;
+  }
+
+  .cars-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .admin-panel {
+    padding: 70px 15px 55px;
+  }
+
+  .admin-title {
+    font-size: 1.65rem;
+    margin-bottom: 30px;
+  }
+
+  .logout-btn {
+    top: 15px;
+    right: 15px;
+
+    padding: 8px 13px;
+
+    font-size: 0.78rem;
+  }
+
+  .notification {
+    top: 65px;
+    right: 15px;
+    left: 15px;
+
+    min-width: 0;
+    max-width: none;
+
+    text-align: center;
+  }
+
+  .car-form {
+    padding: 23px 18px;
+    margin-bottom: 40px;
+
+    border-radius: 17px;
+  }
+
+  .cars-title {
+    font-size: 1.45rem;
+  }
+
+  .cars-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .car-card img,
+  .preview-img {
+    height: 200px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .admin-panel {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .car-form {
+    padding: 20px 15px;
+  }
+
+  .car-card {
+    padding: 12px;
+  }
+
+  .car-card img,
+  .preview-img {
+    height: 175px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    flex: 1 1 100%;
+  }
+}
