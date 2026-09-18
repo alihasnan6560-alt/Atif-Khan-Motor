@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Home.css";
@@ -8,7 +9,6 @@ const API_BASE =
 
 const Home = ({ searchQuery }) => {
   const [cars, setCars] = useState([]);
-  const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +21,6 @@ const Home = ({ searchQuery }) => {
           : [];
 
         setCars(carData);
-        setFeatured(carData.slice(0, 4));
       } catch (err) {
         console.error("Error fetching cars:", err);
       } finally {
@@ -36,14 +35,6 @@ const Home = ({ searchQuery }) => {
 
   const filteredCars = cars.filter((car) =>
     (car.name || "").toLowerCase().includes(query)
-  );
-
-  const featuredIds = new Set(
-    featured.map((car) => car._id)
-  );
-
-  const inventoryCars = filteredCars.filter(
-    (car) => !featuredIds.has(car._id)
   );
 
   return (
@@ -79,44 +70,7 @@ const Home = ({ searchQuery }) => {
         </div>
       </section>
 
-      {/* FEATURED */}
-      {!loading && featured.length > 0 && (
-        <section className="featured-section">
-
-          <div className="section-heading">
-
-            <div>
-              <span className="section-label">
-                HANDPICKED FOR YOU
-              </span>
-
-              <h2 className="section-title">
-                Featured Cars
-              </h2>
-            </div>
-
-            <a
-              href="#inventory"
-              className="section-link"
-            >
-              View Collection →
-            </a>
-
-          </div>
-
-          <div className="cars-grid">
-            {featured.map((car) => (
-              <CarCard
-                key={car._id}
-                car={car}
-              />
-            ))}
-          </div>
-
-        </section>
-      )}
-
-      {/* INVENTORY */}
+      {/* ALL CARS */}
       <section
         id="inventory"
         className="inventory-section"
@@ -126,7 +80,7 @@ const Home = ({ searchQuery }) => {
 
           <div>
             <span className="section-label">
-              OUR INVENTORY
+              OUR COLLECTION
             </span>
 
             <h2 className="section-title">
@@ -135,8 +89,8 @@ const Home = ({ searchQuery }) => {
           </div>
 
           <span className="inventory-count">
-            {inventoryCars.length}{" "}
-            {inventoryCars.length === 1
+            {filteredCars.length}{" "}
+            {filteredCars.length === 1
               ? "Vehicle"
               : "Vehicles"}
           </span>
@@ -151,10 +105,10 @@ const Home = ({ searchQuery }) => {
               Loading our collection...
             </p>
           </div>
-        ) : inventoryCars.length > 0 ? (
+        ) : filteredCars.length > 0 ? (
           <div className="cars-grid">
 
-            {inventoryCars.map((car) => (
+            {filteredCars.map((car) => (
               <CarCard
                 key={car._id}
                 car={car}
@@ -168,13 +122,13 @@ const Home = ({ searchQuery }) => {
             <h3>
               {query
                 ? "No cars found"
-                : "Featured vehicles are currently displayed above"}
+                : "No vehicles available"}
             </h3>
 
             <p>
               {query
                 ? `We couldn't find a vehicle matching "${searchQuery}".`
-                : "Check back soon for more vehicles in our inventory."}
+                : "Check back soon for more vehicles in our collection."}
             </p>
 
           </div>
@@ -187,3 +141,4 @@ const Home = ({ searchQuery }) => {
 };
 
 export default Home;
+
