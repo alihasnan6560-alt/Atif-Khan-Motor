@@ -1,318 +1,407 @@
-
-/* =========================================
-   HEADER
-========================================= */
-
 .noon-header {
-  width: 100%;
-  min-height: 62px;
-  padding: 0 34px;
-  display: flex;
-  align-items: center;
-  background: rgba(5, 12, 24, 0.98);
-  border-bottom: 1px solid rgba(110, 168, 255, 0.10);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-sizing: border-box;
-}
 
-/* =========================================
-   LOGO
-========================================= */
+  width: 100%;
+  height: 100px;
+  min-height: 76px;
 
-.header-brand {
-  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  min-width: 155px;
+  gap: 30px;
+
+  padding: 0 55px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 10, 23, 0.98),
+      rgba(5, 8, 18, 0.96)
+    );
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.2);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.header-brand {
+  flex-shrink: 0;
 }
 
 .logo-text {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+
   text-decoration: none;
-  white-space: nowrap;
+
   line-height: 1;
 }
 
 .logo-main {
   color: #ffffff;
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  white-space: nowrap;
+
+  font-size: 25px;
+  font-weight: 700;
+
+  letter-spacing: 2.2px;
 }
 
 .logo-sub {
-  margin-top: 5px;
-  color: #4ea1ff;
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  white-space: nowrap;
-}
+  margin-top: 4px;
 
-/* =========================================
-   SEARCH
-========================================= */
+  color: #718ce8;
 
-.header-search {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  max-width: 560px;
-  margin: 0 auto;
-}
-
-.search-container {
-  width: 100%;
-  height: 42px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.065);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 22px;
-  overflow: hidden;
-  box-sizing: border-box;
-  transition: 0.25s ease;
-}
-
-.search-container:focus-within {
-  border-color: rgba(78, 161, 255, 0.40);
-  box-shadow:
-    0 0 0 3px rgba(78, 161, 255, 0.06),
-    0 0 20px rgba(78, 161, 255, 0.06);
-}
-
-.search-container input {
-  width: 100%;
-  height: 100%;
-  padding: 0 58px 0 18px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #ffffff;
-  font-size: 11px;
-  font-family: inherit;
-  box-sizing: border-box;
-}
-
-.search-container input::placeholder {
-  color: rgba(255, 255, 255, 0.38);
-}
-
-/* SEARCH BUTTON */
-
-.search-button {
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 50%;
-  background: rgba(48, 111, 190, 0.22);
-  color: #5fa8ff;
   font-size: 12px;
-  cursor: pointer;
-  transition: 0.25s ease;
+  font-weight: 600;
+
+  letter-spacing: 4px;
 }
 
-.search-button:hover {
-  background: rgba(48, 111, 190, 0.42);
-  color: #ffffff;
-  transform: scale(1.04);
-}
 
-/* CLEAR */
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
 
-.search-clear {
-  position: absolute;
-  right: 43px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 25px;
-  height: 25px;
-  padding: 0;
+.desktop-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.40);
-  cursor: pointer;
-  font-size: 10px;
+
+  gap: 50px;
+
+  margin-left: auto;
 }
 
-.search-clear:hover {
+.nav-link {
+  position: relative;
+
+  padding: 28px 0;
+
+  color: #929bad;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition:
+    color 0.25s ease;
+}
+
+.nav-link::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: 18px;
+
+  width: 0;
+  height: 2px;
+
+  transform: translateX(-50%);
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #5279e5,
+    #8064dc
+  );
+
+  transition:
+    width 0.25s ease;
+}
+
+.nav-link:hover {
   color: #ffffff;
 }
 
-/* =========================================
+.nav-link:hover::after {
+  width: 22px;
+}
+
+
+/* =========================================================
    HEADER ACTIONS
-========================================= */
+========================================================= */
 
 .header-actions {
-  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin-left: 22px;
+  gap: 10px;
+
+  margin-left: 5px;
 }
 
-/* ORIGINAL DESKTOP ICON SIZE */
+
+/* =========================================================
+   WHATSAPP BUTTON
+========================================================= */
+
+.whatsapp-header-btn {
+  min-height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 0 15px;
+
+  border: 1px solid rgba(92, 220, 145, 0.25);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37, 184, 96, 0.16),
+      rgba(25, 129, 72, 0.09)
+    );
+
+  color: #8ce0ad;
+
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.whatsapp-header-btn svg {
+  font-size: 15px;
+}
+
+.whatsapp-header-btn:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(94, 229, 148, 0.5);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37, 184, 96, 0.23),
+      rgba(25, 129, 72, 0.14)
+    );
+
+  color: #b3f2ca;
+
+  box-shadow:
+    0 8px 22px rgba(28, 170, 89, 0.13);
+}
+
+
+/* =========================================================
+   ICON BUTTONS
+========================================================= */
 
 .header-icon-btn {
-  width: 38px;
-  height: 38px;
-  padding: 0;
+  position: relative;
+
+  width: 45px;
+  height: 45px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: none;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
   border-radius: 9px;
-  background: transparent;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #aeb6c8;
+
   text-decoration: none;
+
   cursor: pointer;
-  box-sizing: border-box;
-  transition: 0.25s ease;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .header-icon-btn:hover {
-  color: #65aaff;
-  background: rgba(110, 168, 255, 0.08);
+  transform: translateY(-1px);
+
+  color: #ffffff;
+
+  border-color: rgba(105, 134, 229, 0.3);
+
+  background: rgba(86, 113, 215, 0.08);
 }
 
-/* =========================================
-   WISHLIST
-========================================= */
-
-.wishlist-container {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header-icon-btn svg {
+  font-size: 17px;
 }
 
-.wishlist-btn {
-  width: 38px;
-  height: 38px;
-  position: relative;
-}
 
-/* WISHLIST COUNT */
+/* =========================================================
+   WISHLIST COUNT
+========================================================= */
 
 .wishlist-count {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  min-width: 13px;
-  height: 13px;
-  padding: 0 3px;
+
+  top: -5px;
+  right: -5px;
+
+  min-width: 17px;
+  height: 17px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: #4ea1ff;
-  color: #06101d;
-  font-size: 7px;
-  font-weight: 800;
-  line-height: 1;
+
+  padding: 0 4px;
+
   box-sizing: border-box;
-  pointer-events: none;
+
+  border: 2px solid #070b17;
+  border-radius: 50px;
+
+  background: #526fe0;
+
+  color: #ffffff;
+
+  font-size: 8px;
+  font-weight: 700;
 }
 
-/* =========================================
+
+/* =========================================================
    WISHLIST DROPDOWN
-========================================= */
+========================================================= */
+
+.wishlist-container {
+  position: relative;
+}
 
 .wishlist-dropdown {
   position: absolute;
-  top: calc(100% + 10px);
-  right: -8px;
-  width: 320px;
-  background: #0b1424;
-  border: 1px solid rgba(110, 168, 255, 0.16);
-  border-radius: 12px;
+
+  top: calc(100% + 13px);
+  right: 0;
+
+  width: 330px;
+
   overflow: hidden;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.50);
+
+  border: 1px solid rgba(105, 132, 224, 0.18);
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #10172d,
+      #080d1c
+    );
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45);
+
+  animation: wishlistDrop 0.2s ease;
+}
+
+@keyframes wishlistDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .wishlist-dropdown-header {
-  padding: 14px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  padding: 15px 17px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .wishlist-dropdown-header h3 {
   margin: 0;
-  color: #ffffff;
-  font-size: 14px;
+
+  color: #e9edf5;
+
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .wishlist-dropdown-header span {
-  color: rgba(255, 255, 255, 0.42);
+  color: #69758e;
+
   font-size: 10px;
-}
-
-.wishlist-empty-dropdown {
-  padding: 30px 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.40);
-}
-
-.wishlist-empty-dropdown svg {
-  margin-bottom: 10px;
-  font-size: 22px;
-}
-
-.wishlist-empty-dropdown p {
-  margin: 0;
-  font-size: 12px;
 }
 
 .wishlist-list {
   max-height: 300px;
+
   overflow-y: auto;
 }
 
 .wishlist-dropdown-item {
-  min-height: 65px;
-  padding: 9px 13px;
   display: flex;
   align-items: center;
-  gap: 10px;
+
+  gap: 12px;
+
+  padding: 12px 15px;
+
   cursor: pointer;
-  transition: 0.2s ease;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+
+  transition:
+    background 0.2s ease;
 }
 
 .wishlist-dropdown-item:hover {
-  background: rgba(110, 168, 255, 0.06);
+  background: rgba(92, 119, 220, 0.07);
 }
 
 .wishlist-dropdown-item img {
   width: 52px;
-  height: 43px;
+  height: 42px;
+
+  flex-shrink: 0;
+
   object-fit: cover;
-  border-radius: 6px;
+
+  border-radius: 7px;
+
+  background: #111827;
 }
 
 .wishlist-item-info {
@@ -320,117 +409,337 @@
 }
 
 .wishlist-item-info h4 {
-  margin: 0 0 4px;
-  color: #ffffff;
-  font-size: 12px;
-  white-space: nowrap;
+  margin: 0;
+
   overflow: hidden;
+
+  color: #dce2ec;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .wishlist-item-info p {
-  margin: 0;
-  color: #55a7ff;
+  margin: 5px 0 0;
+
+  color: #7189df;
+
   font-size: 10px;
-  font-weight: 600;
+}
+
+.wishlist-empty-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 150px;
+
+  color: #69748a;
+}
+
+.wishlist-empty-dropdown svg {
+  margin-bottom: 10px;
+
+  color: #4b5873;
+
+  font-size: 20px;
+}
+
+.wishlist-empty-dropdown p {
+  margin: 0;
+
+  font-size: 11px;
 }
 
 .wishlist-view-all {
   display: block;
-  padding: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  color: #5fa8ff;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 600;
+
+  padding: 14px 17px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+
+  color: #8299ea;
+
   text-decoration: none;
+
+  text-align: center;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .wishlist-view-all:hover {
-  color: #ffffff;
-  background: rgba(110, 168, 255, 0.05);
+  background: rgba(86, 113, 215, 0.06);
+
+  color: #a7b9ff;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+
+/* =========================================================
+   MOBILE MENU BUTTON
+========================================================= */
 
 .mobile-menu {
   display: none;
-  width: 38px;
-  height: 38px;
-  padding: 0;
+
+  width: 40px;
+  height: 40px;
+
   align-items: center;
   justify-content: center;
-  border: none;
+
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
   border-radius: 9px;
-  background: transparent;
-  color: #ffffff;
-  font-size: 15px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #c1c9d9;
+
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
+
+.mobile-menu:hover {
+  background: rgba(86, 113, 215, 0.08);
+
+  border-color: rgba(105, 134, 229, 0.3);
+
+  color: #ffffff;
+}
+
+.mobile-menu svg {
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
 
 .mobile-nav {
   position: absolute;
-  top: 100%;
+
+  top: calc(100% + 1px);
   left: 0;
   right: 0;
-  padding: 10px 18px 15px;
+
   display: flex;
   flex-direction: column;
-  background: #07111f;
-  border-bottom: 1px solid rgba(110, 168, 255, 0.12);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+
+  padding: 10px 16px 16px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  background:
+    linear-gradient(
+      180deg,
+      #080d1c,
+      #050914
+    );
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35);
+
+  animation: mobileNavOpen 0.2s ease;
+}
+
+@keyframes mobileNavOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-nav a {
-  padding: 12px 10px;
-  color: #ffffff;
+  display: flex;
+  align-items: center;
+
+  min-height: 48px;
+
+  padding: 0 14px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+
+  color: #a4adbf;
+
   text-decoration: none;
-  font-size: 13px;
-  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.mobile-nav a:last-child {
+  border-bottom: 0;
 }
 
 .mobile-nav a:hover {
-  color: #5fa8ff;
-  background: rgba(110, 168, 255, 0.06);
+  padding-left: 18px;
+
+  background: rgba(83, 110, 216, 0.06);
+
+  color: #ffffff;
 }
 
-/* =========================================
-   TABLET
-========================================= */
+.mobile-whatsapp-link {
+  gap: 9px;
+
+  color: #80dba2 !important;
+}
+
+.mobile-whatsapp-link svg {
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — 1100px
+========================================================= */
+
+@media (max-width: 1100px) {
+  .noon-header {
+    padding: 0 30px;
+
+    gap: 20px;
+  }
+
+  .desktop-nav {
+    gap: 22px;
+  }
+
+  .nav-link {
+    font-size: 11px;
+  }
+
+  .whatsapp-header-btn {
+    padding: 0 12px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 900px
+========================================================= */
 
 @media (max-width: 900px) {
   .noon-header {
-    padding: 0 24px;
+    min-height: 70px;
+
+    padding: 0 22px;
   }
 
-  .header-brand {
-    min-width: 135px;
-  }
-
-  .header-search {
-    max-width: 430px;
+  .desktop-nav {
+    display: none;
   }
 
   .header-actions {
-    margin-left: 14px;
+    margin-left: auto;
+  }
+
+  .mobile-menu {
+    display: flex;
   }
 }
 
-/* =========================================
-   MOBILE
-   ORIGINAL MOBILE DESIGN PRESERVED
-========================================= */
 
-@media (max-width: 700px) {
+/* =========================================================
+   RESPONSIVE — 600px
+========================================================= */
+
+@media (max-width: 600px) {
   .noon-header {
-    min-height: 68px;
-    padding: 0 14px;
+    min-height: 66px;
+
+    padding: 0 15px;
+
+    gap: 10px;
   }
 
-  .header-brand {
-    min-width: auto;
+  .logo-main {
+    font-size: 15px;
+
+    letter-spacing: 1.8px;
+  }
+
+  .logo-sub {
+    font-size: 7px;
+
+    letter-spacing: 3.5px;
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .whatsapp-header-btn {
+    width: 39px;
+    height: 39px;
+
+    min-height: 39px;
+
+    padding: 0;
+
+    border-radius: 9px;
+  }
+
+  .whatsapp-header-btn span {
+    display: none;
+  }
+
+  .whatsapp-header-btn svg {
+    font-size: 17px;
+  }
+
+  .header-icon-btn,
+  .mobile-menu {
+    width: 39px;
+    height: 39px;
+  }
+
+  .wishlist-dropdown {
+    position: fixed;
+
+    top: 66px;
+    left: 12px;
+    right: 12px;
+
+    width: auto;
+
+    max-width: none;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — 380px
+========================================================= */
+
+@media (max-width: 380px) {
+  .noon-header {
+    padding: 0 11px;
   }
 
   .logo-main {
@@ -439,91 +748,40 @@
 
   .logo-sub {
     font-size: 6px;
+
     letter-spacing: 3px;
   }
 
-  .header-search {
-    min-width: 0;
-    margin: 0 8px;
-  }
-
-  .search-container {
-    height: 38px;
-  }
-
-  .search-container input {
-    font-size: 10px;
-    padding-left: 14px;
-    padding-right: 48px;
-  }
-
-  .search-button {
-    width: 30px;
-    height: 30px;
-    right: 4px;
-    top: 4px;
-    font-size: 10px;
-  }
-
   .header-actions {
-    margin-left: 0;
-    gap: 3px;
+    gap: 5px;
   }
 
-  .header-actions > .admin-icon {
-    display: none;
-  }
-
-  .wishlist-container,
-  .wishlist-btn,
+  .whatsapp-header-btn,
   .header-icon-btn,
   .mobile-menu {
-    width: 34px;
-    height: 34px;
-  }
-
-  .wishlist-container {
-    flex-basis: 34px;
-  }
-
-  .header-icon-btn {
-    font-size: 13px;
-  }
-
-  .mobile-menu {
-    display: flex;
-  }
-
-  .wishlist-dropdown {
-    right: -5px;
-    width: 300px;
-    max-width: calc(100vw - 20px);
+    width: 36px;
+    height: 36px;
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
 
-@media (max-width: 480px) {
-  .noon-header {
-    padding: 0 9px;
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-link::after,
+  .whatsapp-header-btn,
+  .header-icon-btn,
+  .mobile-menu,
+  .mobile-nav a,
+  .wishlist-view-all {
+    transition: none;
   }
 
-  .logo-main {
-    font-size: 11px;
-  }
-
-  .logo-sub {
-    font-size: 5px;
-    letter-spacing: 2.5px;
-  }
-
-  .header-search {
-    margin: 0 4px;
-  }
-
-  .search-container input {
-    font-size: 9px;
+  .wishlist-dropdown,
+  .mobile-nav {
+    animation: none;
   }
 }

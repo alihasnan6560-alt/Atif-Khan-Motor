@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import {
-  FaSearch,
   FaHeart,
   FaUser,
   FaTimes,
   FaBars,
+  FaWhatsapp,
 } from "react-icons/fa";
+
 import "../styles/Header.css";
 
-const Header = ({ searchQuery, setSearchQuery }) => {
+const Header = () => {
   const navigate = useNavigate();
 
   const [wishlist, setWishlist] = useState([]);
@@ -18,10 +20,17 @@ const Header = ({ searchQuery, setSearchQuery }) => {
 
   const wishlistRef = useRef(null);
 
-  /* ================================
-     LOAD WISHLIST
-  ================================= */
+  // WhatsApp number
+  // Replace this with the actual Atif Khan Motors WhatsApp number.
+  const whatsappNumber = "971500000000";
 
+  const whatsappMessage = encodeURIComponent(
+    "Hello Atif Khan Motors, I would like to inquire about a vehicle."
+  );
+
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  // Load wishlist
   useEffect(() => {
     const loadWishlist = () => {
       try {
@@ -37,8 +46,15 @@ const Header = ({ searchQuery, setSearchQuery }) => {
 
     loadWishlist();
 
-    window.addEventListener("wishlistUpdated", loadWishlist);
-    window.addEventListener("storage", loadWishlist);
+    window.addEventListener(
+      "wishlistUpdated",
+      loadWishlist
+    );
+
+    window.addEventListener(
+      "storage",
+      loadWishlist
+    );
 
     return () => {
       window.removeEventListener(
@@ -53,10 +69,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
     };
   }, []);
 
-  /* ================================
-     CLOSE WISHLIST ON OUTSIDE CLICK
-  ================================= */
-
+  // Close wishlist when clicking outside
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -67,7 +80,10 @@ const Header = ({ searchQuery, setSearchQuery }) => {
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
 
     return () => {
       document.removeEventListener(
@@ -77,59 +93,16 @@ const Header = ({ searchQuery, setSearchQuery }) => {
     };
   }, []);
 
-  /* ================================
-     SEARCH
-  ================================= */
-
-  const handleSearch = () => {
-    const value = searchQuery.trim();
-
-    setSearchQuery(value);
-
-    if (window.location.pathname !== "/") {
-      navigate("/");
-    }
-
-    setTimeout(() => {
-      const inventory =
-        document.getElementById("inventory");
-
-      if (inventory) {
-        inventory.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 150);
-  };
-
-  const handleSearchKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleSearch();
-    }
-  };
-
-  const clearSearch = () => {
-    setSearchQuery("");
-  };
-
-  /* ================================
-     WISHLIST
-  ================================= */
-
   const handleWishlistClick = () => {
     setShowWishlist((prev) => !prev);
   };
 
   const handleWishlistItemClick = (id) => {
     setShowWishlist(false);
+    setMobileMenu(false);
+
     navigate(`/car/${id}`);
   };
-
-  /* ================================
-     MOBILE MENU
-  ================================= */
 
   const closeMobileMenu = () => {
     setMobileMenu(false);
@@ -138,10 +111,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
   return (
     <header className="noon-header">
 
-      {/* ================================
-          BRAND
-      ================================= */}
-
+      {/* LOGO */}
       <div className="header-brand">
         <Link
           to="/"
@@ -158,57 +128,62 @@ const Header = ({ searchQuery, setSearchQuery }) => {
         </Link>
       </div>
 
-      {/* ================================
-          SEARCH
-      ================================= */}
 
-      <div className="header-search">
-        <div className="search-container">
-          
-          <input
-            type="text"
-            placeholder="Search for products..."
-            value={searchQuery}
-            onChange={(event) =>
-              setSearchQuery(event.target.value)
-            }
-            onKeyDown={handleSearchKeyDown}
-            aria-label="Search vehicles"
-          />
+      {/* DESKTOP NAVIGATION */}
+      <nav className="desktop-nav">
 
-          {searchQuery && (
-            <button
-              type="button"
-              className="search-clear"
-              onClick={clearSearch}
-              aria-label="Clear search"
-              title="Clear search"
-            >
-              <FaTimes />
-            </button>
-          )}
+        <Link
+          to="/"
+          className="nav-link"
+        >
+          Home
+        </Link>
 
-          <button
-            type="button"
-            className="search-button"
-            onClick={handleSearch}
-            aria-label="Search"
-            title="Search"
-          >
-            <FaSearch />
-          </button>
+        <Link
+          to="/about"
+          className="nav-link"
+        >
+          About Us
+        </Link>
 
-        </div>
-      </div>
+        <Link
+          to="/stock"
+          className="nav-link"
+        >
+          Available Stock
+        </Link>
 
-      {/* ================================
-          RIGHT ACTIONS
-      ================================= */}
+        <Link
+          to="/contact"
+          className="nav-link"
+        >
+          Contact Us
+        </Link>
 
+      </nav>
+
+
+      {/* HEADER ACTIONS */}
       <div className="header-actions">
 
-        {/* Wishlist */}
+        {/* WHATSAPP */}
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="whatsapp-header-btn"
+          aria-label="Contact us on WhatsApp"
+          title="Contact us on WhatsApp"
+        >
+          <FaWhatsapp />
 
+          <span>
+            WhatsApp
+          </span>
+        </a>
+
+
+        {/* WISHLIST */}
         <div
           className="wishlist-container"
           ref={wishlistRef}
@@ -229,18 +204,24 @@ const Header = ({ searchQuery, setSearchQuery }) => {
             )}
           </button>
 
+
+          {/* WISHLIST DROPDOWN */}
           {showWishlist && (
             <div className="wishlist-dropdown">
 
               <div className="wishlist-dropdown-header">
-                <h3>My Wishlist</h3>
+                <h3>
+                  My Wishlist
+                </h3>
 
                 <span>
                   {wishlist.length} items
                 </span>
               </div>
 
+
               {wishlist.length === 0 ? (
+
                 <div className="wishlist-empty-dropdown">
                   <FaHeart />
 
@@ -248,7 +229,9 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                     Your wishlist is empty.
                   </p>
                 </div>
+
               ) : (
+
                 <>
                   <div className="wishlist-list">
 
@@ -262,6 +245,7 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                           )
                         }
                       >
+
                         {(item.imageUrl ||
                           item.image) && (
                           <img
@@ -269,12 +253,19 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                               item.imageUrl ||
                               item.image
                             }
-                            alt={item.name}
+                            alt={
+                              item.name ||
+                              "Vehicle"
+                            }
                           />
                         )}
 
                         <div className="wishlist-item-info">
-                          <h4>{item.name}</h4>
+
+                          <h4>
+                            {item.name ||
+                              "Vehicle"}
+                          </h4>
 
                           {item.price && (
                             <p>
@@ -284,11 +275,14 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                               AED
                             </p>
                           )}
+
                         </div>
+
                       </div>
                     ))}
 
                   </div>
+
 
                   <Link
                     to="/wishlist"
@@ -300,14 +294,15 @@ const Header = ({ searchQuery, setSearchQuery }) => {
                     View Full Wishlist →
                   </Link>
                 </>
+
               )}
 
             </div>
           )}
         </div>
 
-        {/* Admin */}
 
+        {/* ADMIN */}
         <Link
           to="/admin"
           className="header-icon-btn"
@@ -317,15 +312,16 @@ const Header = ({ searchQuery, setSearchQuery }) => {
           <FaUser />
         </Link>
 
-        {/* Mobile Menu */}
 
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
           className="mobile-menu"
           onClick={() =>
             setMobileMenu((prev) => !prev)
           }
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileMenu}
         >
           {mobileMenu ? (
             <FaTimes />
@@ -336,10 +332,8 @@ const Header = ({ searchQuery, setSearchQuery }) => {
 
       </div>
 
-      {/* ================================
-          MOBILE NAVIGATION
-      ================================= */}
 
+      {/* MOBILE NAVIGATION */}
       {mobileMenu && (
         <nav className="mobile-nav">
 
@@ -351,10 +345,17 @@ const Header = ({ searchQuery, setSearchQuery }) => {
           </Link>
 
           <Link
-            to="/wishlist"
+            to="/about"
             onClick={closeMobileMenu}
           >
-            Wishlist
+            About Us
+          </Link>
+
+          <Link
+            to="/stock"
+            onClick={closeMobileMenu}
+          >
+            Available Stock
           </Link>
 
           <Link
@@ -362,6 +363,24 @@ const Header = ({ searchQuery, setSearchQuery }) => {
             onClick={closeMobileMenu}
           >
             Contact Us
+          </Link>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-whatsapp-link"
+            onClick={closeMobileMenu}
+          >
+            <FaWhatsapp />
+            WhatsApp Contact
+          </a>
+
+          <Link
+            to="/wishlist"
+            onClick={closeMobileMenu}
+          >
+            Wishlist
           </Link>
 
           <Link

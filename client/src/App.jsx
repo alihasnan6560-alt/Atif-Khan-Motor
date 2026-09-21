@@ -1,11 +1,14 @@
-// client/src/App.jsx
-import React, { useState } from "react";
+
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTop from "./ScrollToTop";
 
 import Home from "./pages/Home";
+import AboutUs from "./pages/AboutUs";
 import Wishlist from "./pages/Wishlist";
 import CarDetails from "./pages/CarDetails";
 import ContactUs from "./pages/ContactUs";
@@ -15,19 +18,43 @@ import AdminPanel from "./pages/AdminPanel";
 import "./styles/App.css";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <Router>
+      <ScrollToTop />
+
       <div className="app-root">
-        <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Header />
+
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Home searchQuery={searchQuery} />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/car/:id" element={<CarDetails />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/admin" element={<AdminLogin />} />
+            <Route
+              path="/"
+              element={<Home />}
+            />
+
+            <Route
+              path="/wishlist"
+              element={<Wishlist />}
+            />
+
+            <Route
+              path="/car/:id"
+              element={<CarDetails />}
+            />
+
+            <Route
+              path="/contact"
+              element={<ContactUs />}
+            />
+            <Route
+             path="/about"
+              element={<AboutUs />} />
+
+            <Route
+              path="/admin"
+              element={<AdminLogin />}
+            />
+
             <Route
               path="/admin-panel"
               element={
@@ -38,6 +65,7 @@ function App() {
             />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>
