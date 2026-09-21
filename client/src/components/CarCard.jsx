@@ -1,6 +1,10 @@
+
 import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
+
 import { FaHeart, FaArrowRight } from "react-icons/fa";
+
 import "../styles/CarCard.css";
 
 const API_BASE =
@@ -25,7 +29,6 @@ const CarCard = ({ car }) => {
 
     try {
       const list = JSON.parse(localStorage.getItem("wishlist")) || [];
-
       let updated;
 
       if (wish) {
@@ -54,11 +57,14 @@ const CarCard = ({ car }) => {
   };
 
   const imagePath = car.imageUrl
-    ? `${API_BASE}${
-        car.imageUrl.startsWith("/")
-          ? car.imageUrl
-          : `/${car.imageUrl}`
-      }`
+    ? car.imageUrl.startsWith("http://") ||
+      car.imageUrl.startsWith("https://")
+      ? car.imageUrl
+      : `${API_BASE}${
+          car.imageUrl.startsWith("/")
+            ? car.imageUrl
+            : `/${car.imageUrl}`
+        }`
     : "";
 
   return (

@@ -20,12 +20,11 @@ const Header = () => {
 
   const wishlistRef = useRef(null);
 
-  // WhatsApp number
-  // Replace this with the actual Atif Khan Motors WhatsApp number.
-  const whatsappNumber = "971500000000";
+  // WhatsApp
+  const whatsappNumber = "923045462472";
 
   const whatsappMessage = encodeURIComponent(
-    "Hello Atif Khan Motors, I would like to inquire about a vehicle."
+    "Hello Hasnain Automotive, I would like to inquire about a vehicle."
   );
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
@@ -46,15 +45,8 @@ const Header = () => {
 
     loadWishlist();
 
-    window.addEventListener(
-      "wishlistUpdated",
-      loadWishlist
-    );
-
-    window.addEventListener(
-      "storage",
-      loadWishlist
-    );
+    window.addEventListener("wishlistUpdated", loadWishlist);
+    window.addEventListener("storage", loadWishlist);
 
     return () => {
       window.removeEventListener(
@@ -119,19 +111,17 @@ const Header = () => {
           onClick={closeMobileMenu}
         >
           <span className="logo-main">
-            ATIF KHAN
+            HASNAIN
           </span>
 
           <span className="logo-sub">
-            MOTORS
+            AUTOMOTIVE
           </span>
         </Link>
       </div>
 
-
       {/* DESKTOP NAVIGATION */}
       <nav className="desktop-nav">
-
         <Link
           to="/"
           className="nav-link"
@@ -159,9 +149,7 @@ const Header = () => {
         >
           Contact Us
         </Link>
-
       </nav>
-
 
       {/* HEADER ACTIONS */}
       <div className="header-actions">
@@ -181,7 +169,6 @@ const Header = () => {
             WhatsApp
           </span>
         </a>
-
 
         {/* WISHLIST */}
         <div
@@ -204,7 +191,6 @@ const Header = () => {
             )}
           </button>
 
-
           {/* WISHLIST DROPDOWN */}
           {showWishlist && (
             <div className="wishlist-dropdown">
@@ -219,9 +205,7 @@ const Header = () => {
                 </span>
               </div>
 
-
               {wishlist.length === 0 ? (
-
                 <div className="wishlist-empty-dropdown">
                   <FaHeart />
 
@@ -229,12 +213,9 @@ const Header = () => {
                     Your wishlist is empty.
                   </p>
                 </div>
-
               ) : (
-
                 <>
                   <div className="wishlist-list">
-
                     {wishlist.map((item) => (
                       <div
                         key={item.id}
@@ -245,7 +226,6 @@ const Header = () => {
                           )
                         }
                       >
-
                         {(item.imageUrl ||
                           item.image) && (
                           <img
@@ -261,7 +241,6 @@ const Header = () => {
                         )}
 
                         <div className="wishlist-item-info">
-
                           <h4>
                             {item.name ||
                               "Vehicle"}
@@ -275,14 +254,10 @@ const Header = () => {
                               AED
                             </p>
                           )}
-
                         </div>
-
                       </div>
                     ))}
-
                   </div>
-
 
                   <Link
                     to="/wishlist"
@@ -294,13 +269,10 @@ const Header = () => {
                     View Full Wishlist →
                   </Link>
                 </>
-
               )}
-
             </div>
           )}
         </div>
-
 
         {/* ADMIN */}
         <Link
@@ -311,7 +283,6 @@ const Header = () => {
         >
           <FaUser />
         </Link>
-
 
         {/* MOBILE MENU BUTTON */}
         <button
@@ -329,9 +300,7 @@ const Header = () => {
             <FaBars />
           )}
         </button>
-
       </div>
-
 
       {/* MOBILE NAVIGATION */}
       {mobileMenu && (
@@ -392,7 +361,6 @@ const Header = () => {
 
         </nav>
       )}
-
     </header>
   );
 };

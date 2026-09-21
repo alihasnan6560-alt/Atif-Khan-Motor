@@ -1,49 +1,36 @@
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
 const mongoose = require("mongoose");
-const fs = require("fs");
+const { v2: cloudinary } = require("cloudinary");
+
 const Car = require("../models/Car");
 
 const router = express.Router();
 
 // =====================================================
-// UPLOAD DIRECTORY
+// CLOUDINARY CONFIGURATION
 // =====================================================
 
-const uploadDir = path.join(__dirname, "../uploads");
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // =====================================================
 // MULTER SETUP
 // =====================================================
+// Files are kept temporarily in memory and uploaded
+// directly to Cloudinary.
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-
-  filename: (req, file, cb) => {
-    const extension = path.extname(file.originalname);
-
-    cb(
-      null,
-      `${Date.now()}-${Math.round(Math.random() * 1e9)}${extension}`
-    );
-  },
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
-
   limits: {
     files: 13,
     fileSize: 10 * 1024 * 1024,
   },
-
   fileFilter: (req, file, cb) => {
     if (file.mimetype && file.mimetype.startsWith("image/")) {
       cb(null, true);
@@ -52,6 +39,51 @@ const upload = multer({
     }
   },
 });
+
+// =====================================================
+// CLOUDINARY UPLOAD HELPER
+// =====================================================
+
+const uploadToCloudinary = (file, folder = "hasnain-automotive") => {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.buffer) {
+      return reject(new Error("Invalid image file"));
+    }
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder,
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+
+        resolve(result);
+      }
+    );
+
+    uploadStream.end(file.buffer);
+  });
+};
+
+// =====================================================
+// UPLOAD MULTIPLE IMAGES
+// =====================================================
+
+const uploadImagesToCloudinary = async (
+  files = [],
+  folder = "hasnain-automotive"
+) => {
+  if (!files.length) {
+    return [];
+  }
+
+  return Promise.all(
+    files.map((file) => uploadToCloudinary(file, folder))
+  );
+};
 
 // =====================================================
 // HELPERS
@@ -82,37 +114,21 @@ const cleanString = (value) => {
 
 const getCarFields = (body) => ({
   name: cleanString(body.name),
-
   price: Number(body.price),
-
   make: cleanString(body.make),
-
   model: cleanString(body.model),
-
   year: parseOptionalNumber(body.year),
-
   color: cleanString(body.color),
-
   engineCC: parseOptionalNumber(body.engineCC),
-
   fuelType: cleanString(body.fuelType),
-
   transmission: cleanString(body.transmission),
-
   mileage: parseOptionalNumber(body.mileage),
-
   bodyType: cleanString(body.bodyType),
-
   driveType: cleanString(body.driveType),
-
   condition: cleanString(body.condition),
-
   seats: parseOptionalNumber(body.seats),
-
   doors: parseOptionalNumber(body.doors),
-
   location: cleanString(body.location),
-
   description: cleanString(body.description),
 });
 
@@ -193,7 +209,6 @@ router.post(
   async (req, res) => {
     try {
       const mainImage = req.files?.image?.[0];
-
       const galleryImages = req.files?.images || [];
 
       if (!mainImage) {
@@ -216,13 +231,35 @@ router.post(
         });
       }
 
+      // -------------------------------------------------
+      // UPLOAD MAIN IMAGE TO CLOUDINARY
+      // -------------------------------------------------
+
+      const mainUpload = await uploadToCloudinary(
+        mainImage,
+        "hasnain-automotive/cars"
+      );
+
+      // -------------------------------------------------
+      // UPLOAD GALLERY IMAGES TO CLOUDINARY
+      // -------------------------------------------------
+
+      const galleryUploads = await uploadImagesToCloudinary(
+        galleryImages,
+        "hasnain-automotive/cars"
+      );
+
+      // -------------------------------------------------
+      // CREATE CAR
+      // -------------------------------------------------
+
       const newCar = new Car({
         ...fields,
 
-        imageUrl: `/uploads/${mainImage.filename}`,
+        imageUrl: mainUpload.secure_url,
 
-        images: galleryImages.map(
-          (file) => `/uploads/${file.filename}`
+        images: galleryUploads.map(
+          (image) => image.secure_url
         ),
       });
 
@@ -293,7 +330,10 @@ router.put(
         });
       }
 
-      // Update all vehicle information
+      // -------------------------------------------------
+      // UPDATE VEHICLE INFORMATION
+      // -------------------------------------------------
+
       Object.assign(car, fields);
 
       // -------------------------------------------------
@@ -303,7 +343,12 @@ router.put(
       const newMainImage = req.files?.image?.[0];
 
       if (newMainImage) {
-        car.imageUrl = `/uploads/${newMainImage.filename}`;
+        const mainUpload = await uploadToCloudinary(
+          newMainImage,
+          "hasnain-automotive/cars"
+        );
+
+        car.imageUrl = mainUpload.secure_url;
       }
 
       // -------------------------------------------------
@@ -314,7 +359,9 @@ router.put(
 
       if (req.body.existingImages !== undefined) {
         try {
-          const parsed = JSON.parse(req.body.existingImages);
+          const parsed = JSON.parse(
+            req.body.existingImages
+          );
 
           if (Array.isArray(parsed)) {
             existingImages = parsed.filter(
@@ -340,14 +387,24 @@ router.put(
       // NEW GALLERY IMAGES
       // -------------------------------------------------
 
-      const newGalleryImages = (
-        req.files?.images || []
-      ).map((file) => `/uploads/${file.filename}`);
+      const newGalleryImages = req.files?.images || [];
 
-      // Keep existing + add new
+      const galleryUploads = await uploadImagesToCloudinary(
+        newGalleryImages,
+        "hasnain-automotive/cars"
+      );
+
+      const newGalleryUrls = galleryUploads.map(
+        (image) => image.secure_url
+      );
+
+      // -------------------------------------------------
+      // KEEP EXISTING + ADD NEW
+      // -------------------------------------------------
+
       car.images = [
         ...existingImages,
-        ...newGalleryImages,
+        ...newGalleryUrls,
       ];
 
       await car.save();
@@ -406,7 +463,7 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 // =====================================================
-// MULTER ERROR HANDLER
+// MULTER / UPLOAD ERROR HANDLER
 // =====================================================
 
 router.use((err, req, res, next) => {

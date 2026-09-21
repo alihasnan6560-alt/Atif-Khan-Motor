@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-
 import {
   FaSearch,
   FaChevronDown,
   FaTimes,
+  FaCar,
+  FaShieldAlt,
+  FaHeadset,
+  FaArrowRight,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import "../styles/Home.css";
 import CarCard from "../components/CarCard";
@@ -33,7 +37,7 @@ const Home = () => {
     maxYear: "",
   });
 
-  // Fetch cars
+  // Fetch vehicles
   useEffect(() => {
     const fetchCars = async () => {
       try {
@@ -72,7 +76,7 @@ const Home = () => {
     ].sort((a, b) => a.localeCompare(b));
   }, [cars]);
 
-  // Models depend on selected make
+  // Models based on selected make
   const models = useMemo(() => {
     const filteredCars = selectedMake
       ? cars.filter(
@@ -104,15 +108,13 @@ const Home = () => {
           .map((car) => Number(car.year))
           .filter(
             (year) =>
-              Number.isFinite(year) &&
-              year > 0
+              Number.isFinite(year) && year > 0
           )
       ),
     ].sort((a, b) => b - a);
   }, [cars]);
 
-  // If selected model doesn't belong to selected make,
-  // clear the model automatically.
+  // Clear invalid model when make changes
   useEffect(() => {
     if (
       selectedModel &&
@@ -122,7 +124,7 @@ const Home = () => {
     }
   }, [models, selectedModel]);
 
-  // Apply filters
+  // Apply search
   const handleSearch = () => {
     setAppliedFilters({
       searchTerm: searchTerm.trim(),
@@ -134,7 +136,7 @@ const Home = () => {
 
     requestAnimationFrame(() => {
       document
-        .getElementById("inventory")
+        .getElementById("featured-vehicles")
         ?.scrollIntoView({
           behavior: "smooth",
           block: "start",
@@ -142,14 +144,14 @@ const Home = () => {
     });
   };
 
-  // Enter key search
+  // Enter key
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       handleSearch();
     }
   };
 
-  // Reset everything
+  // Reset filters
   const handleReset = () => {
     setSearchTerm("");
     setSelectedMake("");
@@ -166,7 +168,7 @@ const Home = () => {
     });
   };
 
-  // Filter inventory
+  // Filter vehicles
   const filteredCars = useMemo(() => {
     const query =
       appliedFilters.searchTerm.toLowerCase();
@@ -204,12 +206,14 @@ const Home = () => {
       const matchesMinYear =
         !appliedFilters.minYear ||
         (Number.isFinite(carYear) &&
-          carYear >= Number(appliedFilters.minYear));
+          carYear >=
+            Number(appliedFilters.minYear));
 
       const matchesMaxYear =
         !appliedFilters.maxYear ||
         (Number.isFinite(carYear) &&
-          carYear <= Number(appliedFilters.maxYear));
+          carYear <=
+            Number(appliedFilters.maxYear));
 
       return (
         matchesSearch &&
@@ -228,17 +232,46 @@ const Home = () => {
     Boolean(appliedFilters.minYear) ||
     Boolean(appliedFilters.maxYear);
 
+  // Home only shows a limited selection
+  const featuredCars = filteredCars.slice(0, 6);
+
+  // Dynamic vehicle categories
+  const vehicleCategories = useMemo(() => {
+    const categoryMap = new Map();
+
+    cars.forEach((car) => {
+      const make = String(car.make || "").trim();
+
+      if (!make) return;
+
+      if (!categoryMap.has(make)) {
+        categoryMap.set(make, 0);
+      }
+
+      categoryMap.set(
+        make,
+        categoryMap.get(make) + 1
+      );
+    });
+
+    return Array.from(categoryMap.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .slice(0, 6);
+  }, [cars]);
+
   return (
     <main className="home-container">
 
-      {/* HERO SECTION */}
+      {/* =====================================================
+          HERO
+      ===================================================== */}
       <section className="hero-section">
         <div className="hero-glow hero-glow-one"></div>
         <div className="hero-glow hero-glow-two"></div>
 
         <div className="hero-content">
           <span className="hero-tag">
-            ATIF KHAN MOTORS
+            HASNAIN AUTOMOTIVE
           </span>
 
           <h1>
@@ -255,7 +288,7 @@ const Home = () => {
 
           <div className="hero-actions">
             <a
-              href="#inventory"
+              href="#vehicle-search"
               className="cta-btn"
             >
               Explore Collection
@@ -264,24 +297,28 @@ const Home = () => {
               </span>
             </a>
 
-            <a
-              href="/about"
+            <Link
+              to="/about"
               className="hero-secondary-btn"
             >
-              Why Us
-            </a>
+              About Us
+            </Link>
           </div>
         </div>
 
         <div className="hero-bottom-line">
           <span>PREMIUM VEHICLES</span>
           <span className="line"></span>
-          <span>EST. ATIF KHAN MOTORS</span>
+          <span>HASNAIN AUTOMOTIVE</span>
         </div>
       </section>
 
-      {/* PREMIUM VEHICLE SEARCH */}
+
+      {/* =====================================================
+          SEARCH
+      ===================================================== */}
       <section
+        id="vehicle-search"
         className="vehicle-search-section"
         aria-label="Vehicle Search"
       >
@@ -302,7 +339,6 @@ const Home = () => {
 
         <div className="vehicle-search-panel">
 
-          {/* KEYWORD */}
           <div className="vehicle-search-field keyword-field">
             <FaSearch className="search-field-icon" />
 
@@ -318,7 +354,6 @@ const Home = () => {
             />
           </div>
 
-          {/* MAKE */}
           <div className="vehicle-search-field select-field">
             <select
               value={selectedMake}
@@ -344,7 +379,6 @@ const Home = () => {
             <FaChevronDown className="select-icon" />
           </div>
 
-          {/* MODEL */}
           <div className="vehicle-search-field select-field">
             <select
               value={selectedModel}
@@ -370,7 +404,6 @@ const Home = () => {
             <FaChevronDown className="select-icon" />
           </div>
 
-          {/* MIN YEAR */}
           <div className="vehicle-search-field select-field">
             <select
               value={minYear}
@@ -396,7 +429,6 @@ const Home = () => {
             <FaChevronDown className="select-icon" />
           </div>
 
-          {/* MAX YEAR */}
           <div className="vehicle-search-field select-field">
             <select
               value={maxYear}
@@ -422,7 +454,6 @@ const Home = () => {
             <FaChevronDown className="select-icon" />
           </div>
 
-          {/* SEARCH BUTTON */}
           <button
             type="button"
             className="vehicle-search-btn"
@@ -433,7 +464,6 @@ const Home = () => {
           </button>
         </div>
 
-        {/* RESET */}
         {hasFilters && (
           <button
             type="button"
@@ -446,47 +476,54 @@ const Home = () => {
         )}
       </section>
 
-      {/* INVENTORY */}
+
+      {/* =====================================================
+          FEATURED VEHICLES
+      ===================================================== */}
       <section
-        id="inventory"
-        className="inventory-section"
+        id="featured-vehicles"
+        className="featured-section"
       >
         <div className="section-heading">
           <div>
             <span className="section-label">
-              NEW ARRIVAL
+              {hasFilters
+                ? "SEARCH RESULTS"
+                : "FEATURED COLLECTION"}
             </span>
 
             <h2 className="section-title">
-              Available Cars
+              {hasFilters
+                ? "Matching Vehicles"
+                : "Featured Vehicles"}
             </h2>
 
             <p className="section-description">
               {hasFilters
-                ? "Vehicles matching your search."
-                : "Browse our currently available vehicles."}
+                ? "Vehicles matching your selected search criteria."
+                : "Explore a selection from our currently available collection."}
             </p>
           </div>
 
-          <span className="inventory-count">
-            {filteredCars.length}{" "}
-            {filteredCars.length === 1
-              ? "Vehicle"
-              : "Vehicles"}
-          </span>
+          <Link
+            to="/stock"
+            className="section-link"
+          >
+            View All Stock
+            <FaArrowRight />
+          </Link>
         </div>
 
         {loading ? (
           <div className="loading-state">
             <div className="loading-spinner"></div>
-
             <p>
               Loading our collection...
             </p>
           </div>
-        ) : filteredCars.length > 0 ? (
+        ) : featuredCars.length > 0 ? (
           <div className="cars-grid">
-            {filteredCars.map((car) => (
+            {featuredCars.map((car) => (
               <CarCard
                 key={car._id}
                 car={car}
@@ -500,35 +537,260 @@ const Home = () => {
             </div>
 
             <h3>
-              {hasFilters
-                ? "No vehicles found"
-                : "No vehicles available"}
+              No vehicles found
             </h3>
 
             <p>
-              {hasFilters
-                ? "Try adjusting your search filters to find more vehicles."
-                : "Check back soon for more vehicles in our collection."}
+              Try adjusting your search filters
+              to find available vehicles.
             </p>
 
-            {hasFilters && (
-              <button
-                type="button"
-                className="cta-btn empty-reset-btn"
-                onClick={handleReset}
-              >
-                Clear Search
+            <button
+              type="button"
+              className="cta-btn empty-reset-btn"
+              onClick={handleReset}
+            >
+              Clear Search
+              <span className="cta-arrow">
+                →
+              </span>
+            </button>
+          </div>
+        )}
 
-                <span className="cta-arrow">
-                  →
-                </span>
-              </button>
-            )}
+        {!hasFilters && cars.length > 6 && (
+          <div className="featured-bottom-link">
+            <Link to="/stock">
+              Explore Complete Collection
+              <FaArrowRight />
+            </Link>
           </div>
         )}
       </section>
 
-      {/* FINAL CTA */}
+
+      {/* =====================================================
+          BROWSE BY MAKE
+      ===================================================== */}
+      {!loading && vehicleCategories.length > 0 && (
+        <section className="browse-section">
+          <div className="browse-heading">
+            <div>
+              <span className="section-label">
+                BROWSE OUR COLLECTION
+              </span>
+
+              <h2 className="section-title">
+                Explore By Make
+              </h2>
+            </div>
+
+            <p>
+              Discover vehicles from the makes
+              currently available in our collection.
+            </p>
+          </div>
+
+          <div className="browse-grid">
+            {vehicleCategories.map(
+              ([make, count], index) => (
+                <Link
+                  to="/stock"
+                  key={make}
+                  className="browse-card"
+                >
+                  <div className="browse-card-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                  <div className="browse-card-icon">
+                    <FaCar />
+                  </div>
+
+                  <div className="browse-card-content">
+                    <h3>{make}</h3>
+
+                    <span>
+                      {count}{" "}
+                      {count === 1
+                        ? "Vehicle"
+                        : "Vehicles"}
+                    </span>
+                  </div>
+
+                  <FaArrowRight className="browse-card-arrow" />
+                </Link>
+              )
+            )}
+          </div>
+        </section>
+      )}
+
+
+      {/* =====================================================
+          SHORT ABOUT
+      ===================================================== */}
+      <section className="home-about-section">
+        <div className="home-about-content">
+
+          <div className="home-about-label">
+            <span className="section-label">
+              ABOUT HASNAIN AUTOMOTIVE
+            </span>
+
+            <span className="home-about-line"></span>
+          </div>
+
+          <h2>
+            Driven by Quality.
+            <span> Built on Trust.</span>
+          </h2>
+
+          <p>
+            Hasnain Automotive is focused on providing
+            quality vehicles and a straightforward
+            customer experience. From exploring our
+            collection to getting in touch about a
+            vehicle, we keep the process simple,
+            professional, and customer-focused.
+          </p>
+
+          <Link
+            to="/about"
+            className="text-link"
+          >
+            Learn More About Us
+            <FaArrowRight />
+          </Link>
+        </div>
+
+        <div className="home-about-stats">
+          <div>
+            <FaCar />
+            <strong>Quality</strong>
+            <span>Selected Vehicles</span>
+          </div>
+
+          <div>
+            <FaShieldAlt />
+            <strong>Trust</strong>
+            <span>Customer Focused</span>
+          </div>
+
+          <div>
+            <FaHeadset />
+            <strong>Support</strong>
+            <span>Professional Assistance</span>
+          </div>
+        </div>
+      </section>
+
+
+      {/* =====================================================
+          SERVICES
+      ===================================================== */}
+      <section className="home-services-section">
+        <div className="home-services-heading">
+          <span className="section-label">
+            OUR SERVICES
+          </span>
+
+          <h2>
+            A Simpler Way to
+            <span> Find Your Vehicle.</span>
+          </h2>
+
+          <p>
+            Everything you need to explore our
+            collection and move forward with
+            confidence.
+          </p>
+        </div>
+
+        <div className="home-services-grid">
+
+          <div className="home-service-card">
+            <div className="home-service-number">
+              01
+            </div>
+
+            <div className="home-service-icon">
+              <FaCar />
+            </div>
+
+            <h3>
+              Vehicle Collection
+            </h3>
+
+            <p>
+              Browse our currently available
+              vehicles and explore the collection
+              online.
+            </p>
+
+            <Link to="/stock">
+              Explore Stock
+              <FaArrowRight />
+            </Link>
+          </div>
+
+          <div className="home-service-card">
+            <div className="home-service-number">
+              02
+            </div>
+
+            <div className="home-service-icon">
+              <FaSearch />
+            </div>
+
+            <h3>
+              Vehicle Information
+            </h3>
+
+            <p>
+              Review important vehicle details
+              before deciding which car is right
+              for you.
+            </p>
+
+            <Link to="/stock">
+              View Vehicles
+              <FaArrowRight />
+            </Link>
+          </div>
+
+          <div className="home-service-card">
+            <div className="home-service-number">
+              03
+            </div>
+
+            <div className="home-service-icon">
+              <FaHeadset />
+            </div>
+
+            <h3>
+              Customer Assistance
+            </h3>
+
+            <p>
+              Get in touch with Hasnain Automotive
+              for further information about a
+              vehicle.
+            </p>
+
+            <Link to="/contact">
+              Contact Us
+              <FaArrowRight />
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* =====================================================
+          FINAL CTA
+      ===================================================== */}
       <section className="final-cta">
         <div>
           <span className="section-label">
@@ -541,21 +803,20 @@ const Home = () => {
           </h2>
 
           <p>
-            Explore the available collection and discover
-            your next vehicle.
+            Explore our available collection and
+            discover your next vehicle.
           </p>
         </div>
 
-        <a
-          href="#inventory"
+        <Link
+          to="/stock"
           className="cta-btn"
         >
-          View Cars
-
+          View Available Stock
           <span className="cta-arrow">
             →
           </span>
-        </a>
+        </Link>
       </section>
 
     </main>

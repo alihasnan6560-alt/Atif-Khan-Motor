@@ -1,6 +1,8 @@
+
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import {
   FaHeart,
   FaArrowLeft,
@@ -18,6 +20,7 @@ import {
   FaMapMarkerAlt,
   FaCheckCircle,
 } from "react-icons/fa";
+
 import "../styles/CarDetails.css";
 
 const API_BASE =
@@ -65,6 +68,21 @@ const CarDetails = () => {
 
     return [...new Set(images.filter(Boolean))];
   }, [car]);
+
+  const getImageUrl = (image) => {
+    if (!image) return "";
+
+    if (
+      image.startsWith("http://") ||
+      image.startsWith("https://")
+    ) {
+      return image;
+    }
+
+    return `${API_BASE}${
+      image.startsWith("/") ? image : `/${image}`
+    }`;
+  };
 
   const formatNumber = (value) => {
     if (
@@ -147,7 +165,7 @@ const CarDetails = () => {
   };
 
   const handleInquiry = () => {
-    const message = `Hello Atif Khan Motors, I am interested in the ${car.name} listed for ${formatNumber(
+    const message = `Hello Hasnain Automotive, I am interested in the ${car.name} listed for ${formatNumber(
       car.price
     )} AED. Please share more details.`;
 
@@ -281,7 +299,6 @@ const CarDetails = () => {
     <main className="details-page">
       <div className="details-wrap">
 
-        {/* TOP BAR */}
         <div className="details-topbar">
           <button
             type="button"
@@ -293,11 +310,10 @@ const CarDetails = () => {
           </button>
 
           <span className="details-badge">
-            ATIF KHAN MOTORS
+            HASNAIN AUTOMOTIVE
           </span>
         </div>
 
-        {/* VEHICLE HEADER */}
         <header className="details-header">
           <div className="details-title-area">
             <span className="details-label">
@@ -309,15 +325,11 @@ const CarDetails = () => {
             {(car.make || car.model || car.year) && (
               <p className="details-subtitle">
                 {car.make && car.make}
-
                 {car.make && car.model && " • "}
-
                 {car.model && car.model}
-
                 {(car.make || car.model) &&
                   car.year &&
                   " • "}
-
                 {car.year && car.year}
               </p>
             )}
@@ -339,11 +351,10 @@ const CarDetails = () => {
           </button>
         </header>
 
-        {/* IMAGE GALLERY */}
         <section className="details-media">
           <div className="main-img">
             <img
-              src={`${API_BASE}${currentImage}`}
+              src={getImageUrl(currentImage)}
               alt={car.name}
             />
 
@@ -391,7 +402,7 @@ const CarDetails = () => {
                   }
                 >
                   <img
-                    src={`${API_BASE}${img}`}
+                    src={getImageUrl(img)}
                     alt={`${car.name} ${index + 1}`}
                   />
                 </button>
@@ -400,7 +411,6 @@ const CarDetails = () => {
           )}
         </section>
 
-        {/* PRICE + DESCRIPTION */}
         <section className="details-info">
           <div className="price-block">
             <span className="info-label">
@@ -430,7 +440,6 @@ const CarDetails = () => {
           </div>
         </section>
 
-        {/* SPECIFICATIONS */}
         <section className="vehicle-specs">
           <div className="section-heading">
             <span className="details-label">
@@ -466,7 +475,6 @@ const CarDetails = () => {
           </div>
         </section>
 
-        {/* ACTIONS */}
         <section className="details-actions">
           <button
             type="button"
@@ -492,7 +500,6 @@ const CarDetails = () => {
           </button>
         </section>
 
-        {/* TRUST STRIP */}
         <section className="details-trust">
           <div>
             <span className="trust-number">

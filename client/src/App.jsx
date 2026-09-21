@@ -10,6 +10,7 @@ import ScrollToTop from "./ScrollToTop";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import Wishlist from "./pages/Wishlist";
+import AvailableStock from "./pages/AvailableStock";
 import CarDetails from "./pages/CarDetails";
 import ContactUs from "./pages/ContactUs";
 import AdminLogin from "./pages/AdminLogin";
@@ -31,6 +32,7 @@ function App() {
               path="/"
               element={<Home />}
             />
+            <Route path="/stock" element={<AvailableStock />} />
 
             <Route
               path="/wishlist"

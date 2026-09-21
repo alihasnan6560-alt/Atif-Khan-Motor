@@ -19,7 +19,7 @@ const AboutUs = () => {
       <section className="about-hero">
         <div className="about-hero-content">
           <span className="about-eyebrow">
-            ABOUT ATIF KHAN MOTORS
+            ABOUT HASNAIN AUTOMOTIVE
           </span>
 
           <h1>
@@ -28,7 +28,7 @@ const AboutUs = () => {
           </h1>
 
           <p>
-            Atif Khan Motors is committed to providing quality vehicles,
+            Hasnain Automotive is committed to providing quality vehicles,
             reliable service, and a smooth experience for every customer.
           </p>
         </div>
@@ -47,7 +47,7 @@ const AboutUs = () => {
           </h2>
 
           <p>
-            At Atif Khan Motors, we believe buying a vehicle should be
+            At Hasnain Automotive, we believe buying a vehicle should be
             simple, transparent, and comfortable. Our focus is on
             connecting customers with quality vehicles while providing
             dependable service throughout the buying journey.
@@ -117,7 +117,7 @@ const AboutUs = () => {
       <section className="about-why">
         <div className="about-why-heading">
           <span className="about-section-label">
-            WHY ATIF KHAN MOTORS
+            WHY HASNAIN AUTOMOTIVE
           </span>
 
           <h2>
@@ -131,7 +131,6 @@ const AboutUs = () => {
         </div>
 
         <div className="about-focus-grid">
-
           <div className="about-focus-card">
             <div className="focus-number">
               01
@@ -191,7 +190,6 @@ const AboutUs = () => {
               provide assistance throughout the journey.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -212,7 +210,7 @@ const AboutUs = () => {
 
             <p>
               Whether you are looking for your next vehicle or simply
-              exploring the collection, Atif Khan Motors gives you a
+              exploring the collection, Hasnain Automotive gives you a
               clean and focused way to discover available cars.
             </p>
           </div>
@@ -272,7 +270,7 @@ const AboutUs = () => {
                 </h3>
 
                 <p>
-                  Get in contact with the dealership for further
+                  Get in contact with Hasnain Automotive for further
                   information about a vehicle.
                 </p>
               </div>

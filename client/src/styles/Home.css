@@ -1,3 +1,4 @@
+
 .home-container {
   padding: 35px 55px 80px;
   font-family: "Poppins", sans-serif;
@@ -16,7 +17,6 @@
     #050814;
   min-height: 100vh;
 }
-
 
 /* =========================================================
    HERO SECTION
@@ -205,16 +205,16 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-
 /* =========================================================
-   PREMIUM VEHICLE SEARCH
+   SEARCH
 ========================================================= */
 
 .vehicle-search-section {
   position: relative;
   z-index: 5;
   max-width: 1450px;
-  margin: -28px auto 85px;
+  margin: -28px auto 90px;
+  scroll-margin-top: 30px;
 }
 
 .vehicle-search-heading {
@@ -241,9 +241,6 @@
   font-size: 13px;
 }
 
-
-/* Main search container */
-
 .vehicle-search-panel {
   display: grid;
   grid-template-columns:
@@ -267,9 +264,6 @@
     0 22px 60px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.015) inset;
 }
-
-
-/* Search fields */
 
 .vehicle-search-field {
   position: relative;
@@ -297,9 +291,6 @@
     0 0 0 3px rgba(73, 105, 220, 0.08);
 }
 
-
-/* Keyword */
-
 .keyword-field {
   padding: 0 15px;
 }
@@ -326,9 +317,6 @@
 .keyword-field input::placeholder {
   color: #69748a;
 }
-
-
-/* Select fields */
 
 .select-field {
   padding: 0 38px 0 13px;
@@ -366,9 +354,6 @@
   color: #68748c;
   font-size: 9px;
 }
-
-
-/* Search button */
 
 .vehicle-search-btn {
   min-height: 56px;
@@ -412,9 +397,6 @@
   font-size: 12px;
 }
 
-
-/* Clear filters */
-
 .vehicle-search-reset {
   display: flex;
   align-items: center;
@@ -438,24 +420,9 @@
   transform: translateY(-1px);
 }
 
-
 /* =========================================================
-   INVENTORY
+   GENERAL SECTION STYLES
 ========================================================= */
-
-.inventory-section {
-  max-width: 1450px;
-  margin: 0 auto 100px;
-  scroll-margin-top: 30px;
-}
-
-.section-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 32px;
-}
 
 .section-label {
   display: block;
@@ -484,6 +451,47 @@
   line-height: 1.7;
 }
 
+/* =========================================================
+   FEATURED VEHICLES
+========================================================= */
+
+.featured-section {
+  max-width: 1450px;
+  margin: 0 auto 105px;
+  scroll-margin-top: 30px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 32px;
+}
+
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #8da5ff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.section-link:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.section-link svg {
+  font-size: 10px;
+}
+
 .inventory-count {
   display: inline-flex;
   align-items: center;
@@ -500,17 +508,424 @@
   text-transform: uppercase;
 }
 
-
-/* Cars grid */
-
 .cars-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
 }
 
+.featured-bottom-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
 
-/* Loading */
+.featured-bottom-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #91a6ff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.featured-bottom-link a:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   BROWSE OUR COLLECTION
+========================================================= */
+
+.browse-section {
+  max-width: 1450px;
+  margin: 0 auto 105px;
+  padding: 58px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(14, 21, 43, 0.82),
+      rgba(7, 11, 24, 0.9)
+    );
+}
+
+.browse-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+
+.browse-heading p {
+  max-width: 430px;
+  margin: 0;
+  color: #788399;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.browse-card {
+  position: relative;
+  min-height: 145px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(23, 31, 59, 0.72),
+      rgba(8, 13, 28, 0.75)
+    );
+  text-decoration: none;
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.browse-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(107, 137, 237, 0.25);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(27, 38, 72, 0.82),
+      rgba(9, 14, 30, 0.85)
+    );
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.browse-card-number {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  color: #303a54;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.browse-card-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(106, 133, 231, 0.2);
+  border-radius: 13px;
+  background: rgba(83, 110, 220, 0.07);
+  color: #7895ee;
+  font-size: 16px;
+}
+
+.browse-card-content {
+  min-width: 0;
+}
+
+.browse-card-content h3 {
+  margin: 0 0 6px;
+  color: #e6eaf2;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.browse-card-content span {
+  color: #737e94;
+  font-size: 10px;
+}
+
+.browse-card-arrow {
+  margin-left: auto;
+  color: #6578b8;
+  font-size: 13px;
+  transition: transform 0.25s ease;
+}
+
+.browse-card:hover .browse-card-arrow {
+  transform: translateX(5px);
+}
+
+/* =========================================================
+   SHORT ABOUT
+========================================================= */
+
+.home-about-section {
+  max-width: 1450px;
+  margin: 0 auto 105px;
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 70px;
+  align-items: center;
+  padding: 70px 60px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(58, 92, 192, 0.1),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(14, 21, 43, 0.72),
+      rgba(7, 11, 24, 0.9)
+    );
+}
+
+.home-about-label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.home-about-label .section-label {
+  margin-bottom: 0;
+}
+
+.home-about-line {
+  width: 55px;
+  height: 1px;
+  background: rgba(116, 143, 231, 0.4);
+}
+
+.home-about-content h2 {
+  max-width: 650px;
+  margin: 20px 0 0;
+  color: #f2f4fa;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -1.7px;
+}
+
+.home-about-content h2 span {
+  color: #829dff;
+}
+
+.home-about-content p {
+  max-width: 680px;
+  margin: 23px 0 0;
+  color: #7d879b;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 25px;
+  color: #91a6ff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.text-link:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.text-link svg {
+  font-size: 10px;
+}
+
+.home-about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.home-about-stats > div {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  column-gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.home-about-stats svg {
+  grid-row: span 2;
+  width: 40px;
+  height: 40px;
+  padding: 11px;
+  box-sizing: border-box;
+  border-radius: 11px;
+  background: rgba(83, 110, 220, 0.07);
+  color: #7895ee;
+}
+
+.home-about-stats strong {
+  align-self: end;
+  color: #dfe4ee;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.home-about-stats span {
+  margin-top: 3px;
+  color: #6f7a90;
+  font-size: 10px;
+}
+
+/* =========================================================
+   HOME SERVICES
+========================================================= */
+
+.home-services-section {
+  max-width: 1450px;
+  margin: 0 auto 105px;
+}
+
+.home-services-heading {
+  max-width: 650px;
+  margin-bottom: 40px;
+}
+
+.home-services-heading h2 {
+  margin: 0;
+  color: #f1f4fa;
+  font-size: clamp(32px, 4vw, 50px);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -1.5px;
+}
+
+.home-services-heading h2 span {
+  color: #829dff;
+}
+
+.home-services-heading p {
+  max-width: 550px;
+  margin: 18px 0 0;
+  color: #7d879b;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.home-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-service-card {
+  position: relative;
+  min-height: 285px;
+  padding: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 25, 50, 0.72),
+      rgba(8, 13, 28, 0.82)
+    );
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.home-service-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99, 127, 224, 0.22);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.home-service-number {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  color: #303a54;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.home-service-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  border: 1px solid rgba(106, 133, 231, 0.2);
+  border-radius: 12px;
+  background: rgba(83, 110, 220, 0.07);
+  color: #7895ee;
+  font-size: 15px;
+}
+
+.home-service-card h3 {
+  margin: 0 0 10px;
+  color: #e6eaf2;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.home-service-card p {
+  max-width: 330px;
+  margin: 0;
+  color: #788399;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.home-service-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  color: #8198ed;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.home-service-card a:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.home-service-card a svg {
+  font-size: 9px;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading-state {
   min-height: 280px;
@@ -545,8 +960,9 @@
   }
 }
 
-
-/* Empty state */
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
 .empty-state {
   min-height: 300px;
@@ -594,196 +1010,6 @@
   margin-top: 22px;
 }
 
-
-/* =========================================================
-   WHY US
-========================================================= */
-
-.why-section {
-  max-width: 1450px;
-  margin: 0 auto 110px;
-}
-
-.centered-heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.centered-description {
-  max-width: 600px;
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 42px;
-}
-
-.benefit-card {
-  position: relative;
-  min-height: 220px;
-  padding: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 18px;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(17, 25, 50, 0.72),
-      rgba(8, 13, 28, 0.8)
-    );
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.benefit-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(99, 127, 224, 0.22);
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.25);
-}
-
-.benefit-number {
-  position: absolute;
-  top: 20px;
-  right: 22px;
-  color: #313b56;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.benefit-icon {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 25px;
-  border: 1px solid rgba(106, 133, 231, 0.2);
-  border-radius: 12px;
-  background: rgba(83, 110, 220, 0.07);
-  color: #7895ee;
-  font-size: 15px;
-}
-
-.benefit-card h3 {
-  margin: 0 0 10px;
-  color: #e6eaf2;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.benefit-card p {
-  margin: 0;
-  color: #788399;
-  font-size: 11px;
-  line-height: 1.8;
-}
-
-
-/* =========================================================
-   SERVICES
-========================================================= */
-
-.services-section {
-  max-width: 1450px;
-  margin: 0 auto 110px;
-  padding: 70px 55px;
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 24px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(15, 22, 44, 0.82),
-      rgba(7, 11, 24, 0.9)
-    );
-}
-
-.services-content {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 80px;
-  align-items: start;
-}
-
-.services-intro h2 {
-  margin: 0;
-  color: #f1f4fa;
-  font-size: clamp(30px, 4vw, 48px);
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  font-weight: 600;
-}
-
-.services-intro p {
-  max-width: 520px;
-  margin: 22px 0 0;
-  color: #7d879b;
-  font-size: 13px;
-  line-height: 1.9;
-}
-
-.services-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.service-item {
-  display: grid;
-  grid-template-columns: 45px 1fr 30px;
-  align-items: center;
-  gap: 15px;
-  padding: 25px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
-}
-
-.service-item:first-child {
-  padding-top: 0;
-}
-
-.service-item:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.service-index {
-  color: #53648c;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.service-item h3 {
-  margin: 0 0 7px;
-  color: #dce2ed;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.service-item p {
-  margin: 0;
-  color: #707b90;
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-.service-arrow {
-  color: #7188d7;
-  font-size: 18px;
-  transition: transform 0.25s ease;
-}
-
-.service-item:hover .service-arrow {
-  transform: translateX(5px);
-}
-
-
 /* =========================================================
    FINAL CTA
 ========================================================= */
@@ -830,7 +1056,6 @@
   font-size: 12px;
 }
 
-
 /* =========================================================
    RESPONSIVE — 1200px
 ========================================================= */
@@ -848,10 +1073,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .benefits-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .vehicle-search-panel {
     grid-template-columns:
       2fr
@@ -866,8 +1087,16 @@
   .keyword-field {
     grid-column: span 2;
   }
-}
 
+  .browse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-about-section {
+    gap: 45px;
+    padding: 55px 45px;
+  }
+}
 
 /* =========================================================
    RESPONSIVE — 900px
@@ -905,7 +1134,7 @@
     grid-column: 1 / -1;
   }
 
-  .inventory-section {
+  .featured-section {
     margin-bottom: 80px;
   }
 
@@ -913,20 +1142,40 @@
     align-items: flex-start;
   }
 
-  .services-section {
+  .browse-section {
     padding: 50px 35px;
+    margin-bottom: 80px;
   }
 
-  .services-content {
+  .browse-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .home-about-section {
     grid-template-columns: 1fr;
-    gap: 55px;
+    gap: 45px;
+    padding: 50px 35px;
+    margin-bottom: 80px;
+  }
+
+  .home-services-section {
+    margin-bottom: 80px;
+  }
+
+  .home-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-service-card {
+    min-height: auto;
   }
 
   .final-cta {
     padding: 45px 35px;
   }
 }
-
 
 /* =========================================================
    RESPONSIVE — 600px
@@ -984,7 +1233,6 @@
     letter-spacing: 1.2px;
   }
 
-
   /* Search */
 
   .vehicle-search-section {
@@ -1028,8 +1276,7 @@
     min-height: 54px;
   }
 
-
-  /* Inventory */
+  /* Featured */
 
   .section-heading {
     flex-direction: column;
@@ -1046,9 +1293,8 @@
     font-size: 11px;
   }
 
-  .inventory-count {
-    min-height: 31px;
-    font-size: 9px;
+  .section-link {
+    font-size: 10px;
   }
 
   .cars-grid {
@@ -1056,47 +1302,85 @@
     gap: 11px;
   }
 
+  /* Browse */
 
-  /* Why Us */
-
-  .why-section {
+  .browse-section {
+    padding: 40px 22px;
+    border-radius: 19px;
     margin-bottom: 75px;
   }
 
-  .benefits-grid {
+  .browse-heading {
+    margin-bottom: 27px;
+  }
+
+  .browse-heading p {
+    font-size: 11px;
+  }
+
+  .browse-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 30px;
+    gap: 9px;
   }
 
-  .benefit-card {
-    min-height: auto;
-    padding: 23px;
+  .browse-card {
+    min-height: 110px;
+    padding: 18px;
   }
 
+  /* About */
+
+  .home-about-section {
+    padding: 40px 22px;
+    border-radius: 19px;
+    gap: 35px;
+    margin-bottom: 75px;
+  }
+
+  .home-about-content h2 {
+    font-size: 33px;
+    letter-spacing: -1px;
+  }
+
+  .home-about-content p {
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .home-about-stats {
+    gap: 9px;
+  }
+
+  .home-about-stats > div {
+    padding: 15px;
+  }
 
   /* Services */
 
-  .services-section {
+  .home-services-section {
     margin-bottom: 75px;
-    padding: 40px 22px;
-    border-radius: 19px;
   }
 
-  .services-content {
-    gap: 40px;
+  .home-services-heading {
+    margin-bottom: 28px;
   }
 
-  .services-intro h2 {
-    font-size: 32px;
+  .home-services-heading h2 {
+    font-size: 33px;
   }
 
-  .service-item {
-    grid-template-columns: 35px 1fr 20px;
-    gap: 9px;
-    padding: 21px 0;
+  .home-services-heading p {
+    font-size: 11px;
   }
 
+  .home-services-grid {
+    gap: 10px;
+  }
+
+  .home-service-card {
+    padding: 23px;
+    border-radius: 15px;
+  }
 
   /* Final CTA */
 
@@ -1116,7 +1400,6 @@
     width: 100%;
   }
 }
-
 
 /* =========================================================
    RESPONSIVE — 380px
@@ -1152,15 +1435,26 @@
     padding: 8px;
   }
 
-  .services-section {
+  .browse-section {
     padding: 35px 18px;
+  }
+
+  .home-about-section {
+    padding: 35px 18px;
+  }
+
+  .home-about-content h2 {
+    font-size: 29px;
+  }
+
+  .home-service-card {
+    padding: 20px;
   }
 
   .final-cta {
     padding: 34px 18px;
   }
 }
-
 
 /* =========================================================
    REDUCED MOTION
@@ -1172,8 +1466,13 @@
   .vehicle-search-field,
   .vehicle-search-btn,
   .vehicle-search-reset,
-  .benefit-card,
-  .service-arrow {
+  .section-link,
+  .featured-bottom-link a,
+  .browse-card,
+  .browse-card-arrow,
+  .text-link,
+  .home-service-card,
+  .home-service-card a {
     transition: none;
   }
 

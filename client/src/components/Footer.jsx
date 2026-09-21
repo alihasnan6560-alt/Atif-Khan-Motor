@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import {
   FaWhatsapp,
   FaPhoneAlt,
   FaEnvelope,
 } from "react-icons/fa";
+
 import "../styles/Footer.css";
 
 const Footer = () => {
@@ -14,14 +16,13 @@ const Footer = () => {
 
   return (
     <footer className="site-footer">
-
       <div className="footer-main">
 
         {/* BRAND */}
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
-            <span>ATIF KHAN</span>
-            <strong>MOTORS</strong>
+            <span>HASNAIN</span>
+            <strong>AUTOMOTIVE</strong>
           </Link>
 
           <p>
@@ -62,9 +63,10 @@ const Footer = () => {
 
           <div className="footer-links">
             <Link to="/">Home</Link>
+            <Link to="/about">About Us</Link>
+            <Link to="/stock">Available Stock</Link>
             <Link to="/wishlist">Wishlist</Link>
             <Link to="/contact">Contact Us</Link>
-            <Link to="/admin">Admin Login</Link>
           </div>
         </div>
 
@@ -73,9 +75,9 @@ const Footer = () => {
           <h3>Our Services</h3>
 
           <div className="footer-services">
-            <span>Premium Cars</span>
-            <span>Car Accessories</span>
-            <span>Vehicle Detailing</span>
+            <span>Premium Vehicles</span>
+            <span>Vehicle Enquiries</span>
+            <span>Customer Support</span>
             <span>Automotive Solutions</span>
           </div>
         </div>
@@ -108,20 +110,18 @@ const Footer = () => {
             <span>Lahore, Pakistan</span>
           </div>
         </div>
-
       </div>
 
       {/* BOTTOM */}
       <div className="footer-bottom">
         <span>
-          © 2026 Atif Khan Motors. All rights reserved.
+          © 2026 Hasnain Automotive. All rights reserved.
         </span>
 
         <span>
-          Premium Cars • Trusted Service • Exceptional Experience
+          Premium Vehicles • Trusted Service • Exceptional Experience
         </span>
       </div>
-
     </footer>
   );
 };
