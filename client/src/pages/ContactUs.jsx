@@ -282,7 +282,7 @@ const ContactUs = () => {
 
             <div>
               <h3>
-                Atif Khan Motors
+                Hasnain AutoMotive
               </h3>
 
               <p>
