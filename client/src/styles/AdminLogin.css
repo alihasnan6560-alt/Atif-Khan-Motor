@@ -1,250 +1,473 @@
 
 /* =========================================================
-   ADMIN LOGIN
-   Atif Khan Motors — Luxury Dark Showroom Theme
+   HASNAIN AUTOMOTIVE — ADMIN LOGIN
+   Premium Automotive Control Room
    ========================================================= */
 
-.admin-login {
-  width: min(420px, calc(100% - 40px));
-  margin: 80px auto;
-  padding: 42px 34px;
-
-  box-sizing: border-box;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(17, 31, 52, 0.96),
-      rgba(5, 12, 24, 0.98)
-    );
-
-  border: 1px solid rgba(77, 163, 255, 0.2);
-  border-radius: 24px;
-
-  box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.5),
-    0 0 45px rgba(30, 120, 255, 0.08);
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  text-align: center;
-  color: #ffffff;
-
-  font-family: "Poppins", sans-serif;
-
+.admin-login-page {
+  min-height: calc(100vh - 74px);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 24px;
+  box-sizing: border-box;
   overflow: hidden;
 
-  animation: adminFadeIn 0.6s ease-out;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(90, 111, 215, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(65, 84, 165, 0.09),
+      transparent 30%
+    ),
+    #04070d;
+
+  color: #fff;
 }
 
-/* Subtle blue glow inside the card */
-.admin-login::before {
+/* Background architectural lines */
+
+.admin-login-page::before {
   content: "";
   position: absolute;
-  top: -100px;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+}
+
+/* Large ambient glow */
+
+.admin-login-page::after {
+  content: "";
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
 
-  width: 240px;
-  height: 180px;
-
-  background: rgba(37, 140, 255, 0.12);
-  filter: blur(55px);
-
+  border-radius: 50%;
+  background: rgba(92, 112, 214, 0.055);
+  filter: blur(90px);
   pointer-events: none;
 }
 
-/* Top accent line */
-.admin-login::after {
+/* =========================================================
+   MAIN LOGIN PANEL
+   ========================================================= */
+
+.admin-login {
+  width: min(920px, 100%);
+  min-height: 540px;
+
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(16, 22, 35, 0.97),
+      rgba(6, 10, 18, 0.99)
+    );
+
+  border: 1px solid rgba(146, 160, 222, 0.14);
+  border-radius: 20px;
+
+  box-shadow:
+    0 45px 120px rgba(0, 0, 0, 0.65),
+    0 0 80px rgba(75, 94, 180, 0.055);
+
+  animation: adminPanelIn 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Top accent */
+
+.admin-login::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 12%;
-  width: 76%;
-  height: 2px;
+  left: 7%;
+  width: 86%;
+  height: 1px;
+  z-index: 5;
 
   background: linear-gradient(
     90deg,
     transparent,
-    #3b9cff,
-    #78bdff,
-    #3b9cff,
+    rgba(132, 151, 238, 0.9),
+    rgba(180, 192, 255, 0.7),
     transparent
   );
-
-  opacity: 0.8;
 }
 
 /* =========================================================
-   HEADING
+   LEFT BRAND PANEL
    ========================================================= */
 
-.admin-login h2 {
-  position: relative;
-  z-index: 1;
+.admin-login::after {
+  content: "ADMIN";
+  position: absolute;
+  left: 34px;
+  bottom: -35px;
 
-  margin: 0 0 30px;
+  color: rgba(255, 255, 255, 0.018);
 
-  font-size: 1.9rem;
-  line-height: 1.2;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(80px, 12vw, 150px);
+  font-weight: 900;
+  letter-spacing: -0.07em;
 
-  font-weight: 700;
-  letter-spacing: 0.3px;
+  pointer-events: none;
+}
 
-  color: #ffffff;
+.admin-login-glow {
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  left: -150px;
+  top: -120px;
 
-  text-shadow: 0 0 20px rgba(80, 170, 255, 0.18);
+  border-radius: 50%;
+  background: rgba(92, 113, 222, 0.11);
+  filter: blur(80px);
+
+  pointer-events: none;
 }
 
 /* =========================================================
-   FORM
+   HEADER
    ========================================================= */
 
-.admin-login form {
+.admin-login-header {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+
+  grid-column: 1;
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+
+  padding: 55px 48px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.025),
+      transparent 55%
+    );
 }
 
-/* =========================================================
-   INPUTS
-   ========================================================= */
+/* Icon */
 
-.admin-login input {
-  width: 100%;
-  box-sizing: border-box;
+.admin-login-icon {
+  width: 54px;
+  height: 54px;
 
-  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  margin-bottom: 28px;
 
-  outline: none;
+  border: 1px solid rgba(132, 151, 235, 0.2);
+  border-radius: 14px;
 
-  background: rgba(255, 255, 255, 0.055);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(117, 138, 226, 0.13),
+      rgba(117, 138, 226, 0.025)
+    );
 
-  color: #ffffff;
-
-  font-family: inherit;
-  font-size: 0.95rem;
-
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-
-.admin-login input::placeholder {
-  color: rgba(255, 255, 255, 0.48);
-}
-
-.admin-login input:hover {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(77, 163, 255, 0.22);
-}
-
-.admin-login input:focus {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(77, 163, 255, 0.65);
+  color: #91a4f1;
 
   box-shadow:
-    0 0 0 3px rgba(59, 156, 255, 0.08),
-    0 0 22px rgba(59, 156, 255, 0.1);
+    inset 0 0 25px rgba(108, 128, 220, 0.035),
+    0 15px 35px rgba(0, 0, 0, 0.25);
+}
 
-  transform: translateY(-1px);
+.admin-login-icon svg {
+  font-size: 20px;
+}
+
+/* Small branding */
+
+.admin-login-eyebrow {
+  display: block;
+
+  margin-bottom: 11px;
+
+  color: #8496e7;
+
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+}
+
+/* Main title */
+
+.admin-login-header h1 {
+  margin: 0;
+
+  color: #f4f6fb;
+
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(30px, 4vw, 43px);
+  font-weight: 800;
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+}
+
+/* Description */
+
+.admin-login-header p {
+  max-width: 280px;
+
+  margin: 17px 0 0;
+
+  color: #69758a;
+
+  font-size: 9px;
+  line-height: 1.8;
 }
 
 /* =========================================================
-   ERROR MESSAGE
+   FORM SIDE
    ========================================================= */
 
-.admin-login .error {
-  margin: 0;
-  padding: 10px 12px;
+.admin-login-form {
+  position: relative;
+  z-index: 4;
 
-  color: #ff8d8d;
+  grid-column: 2;
 
-  background: rgba(255, 70, 70, 0.07);
-  border: 1px solid rgba(255, 90, 90, 0.14);
-  border-radius: 10px;
+  align-self: center;
 
-  text-align: center;
+  padding: 55px 55px;
+}
 
-  font-size: 0.86rem;
+/* Add subtle top label before form */
+
+.admin-login-form::before {
+  content: "SECURE ACCESS";
+
+  display: block;
+
+  margin-bottom: 25px;
+
+  color: #53627c;
+
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+}
+
+/* =========================================================
+   FIELDS
+   ========================================================= */
+
+.admin-field {
+  margin-bottom: 19px;
+}
+
+.admin-field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #8994a8;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.admin-input-wrap {
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  box-sizing: border-box;
+  padding: 0 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.admin-input-wrap > svg {
+  flex-shrink: 0;
+
+  color: #4e5b72;
+
+  font-size: 12px;
+
+  transition: color 0.3s ease;
+}
+
+.admin-input-wrap input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #eef1f7;
+
+  font-family: inherit;
+  font-size: 11px;
   font-weight: 500;
+}
+
+.admin-input-wrap input::placeholder {
+  color: #485367;
+}
+
+.admin-input-wrap:hover {
+  border-color: rgba(125, 145, 231, 0.18);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.admin-input-wrap:focus-within {
+  transform: translateY(-1px);
+
+  border-color: rgba(126, 147, 235, 0.48);
+
+  background: rgba(104, 124, 218, 0.045);
+
+  box-shadow:
+    0 0 0 3px rgba(104, 124, 218, 0.055),
+    0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+.admin-input-wrap:focus-within > svg {
+  color: #91a4ef;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.admin-login-error {
+  margin: 4px 0 17px;
+  padding: 11px 13px;
+
+  border: 1px solid rgba(255, 91, 91, 0.16);
+  border-radius: 8px;
+
+  background: rgba(255, 65, 65, 0.055);
+
+  color: #ff9b9b;
+
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 /* =========================================================
    LOGIN BUTTON
    ========================================================= */
 
-.admin-login button {
+.admin-login-button {
+  width: 100%;
+  height: 52px;
+
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   overflow: hidden;
 
-  width: 100%;
+  margin-top: 8px;
+  padding: 0 17px;
 
-  margin-top: 4px;
-  padding: 14px 18px;
+  border: 1px solid rgba(166, 181, 255, 0.18);
+  border-radius: 9px;
 
-  border: none;
-  border-radius: 12px;
+  background:
+    linear-gradient(
+      100deg,
+      #596dca,
+      #7d90e5
+    );
 
-  background: linear-gradient(
-    135deg,
-    #1677e8,
-    #3197ff
-  );
-
-  color: #ffffff;
+  color: #fff;
 
   font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-
-  letter-spacing: 0.4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 
   cursor: pointer;
 
   box-shadow:
-    0 10px 25px rgba(22, 119, 232, 0.2);
+    0 16px 35px rgba(72, 91, 181, 0.2);
 
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
+    filter 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.admin-login button:hover {
-  transform: translateY(-2px);
-
-  filter: brightness(1.08);
-
-  box-shadow:
-    0 14px 32px rgba(22, 119, 232, 0.3),
-    0 0 22px rgba(49, 151, 255, 0.12);
-}
-
-.admin-login button:active {
-  transform: translateY(0);
-}
-
-/* =========================================================
-   BUTTON SHINE
-   ========================================================= */
-
-.admin-login button::before {
+.admin-login-button::before {
   content: "";
 
   position: absolute;
+
   top: 0;
-  left: -100%;
+  left: -120%;
 
   width: 60%;
   height: 100%;
@@ -252,73 +475,210 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.2),
     transparent
   );
 
-  transform: skewX(-20deg);
+  transform: skewX(-22deg);
 
-  transition: left 0.55s ease;
+  transition: left 0.65s ease;
 }
 
-.admin-login button:hover::before {
-  left: 140%;
+.admin-login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  filter: brightness(1.07);
+
+  box-shadow:
+    0 20px 45px rgba(72, 91, 181, 0.28);
+}
+
+.admin-login-button:hover:not(:disabled)::before {
+  left: 145%;
+}
+
+.admin-login-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.admin-login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-login-button svg {
+  font-size: 9px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.admin-login-footer {
+  position: absolute;
+
+  left: 48px;
+  right: 48px;
+  bottom: 25px;
+
+  z-index: 5;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: #394357;
+
+  font-size: 5.5px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
 }
 
 /* =========================================================
    ANIMATION
    ========================================================= */
 
-@keyframes adminFadeIn {
+@keyframes adminPanelIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px) scale(0.985);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
    ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
+  .admin-login-page {
+    min-height: calc(100vh - 68px);
+    padding: 50px 20px;
+  }
+
   .admin-login {
-    width: calc(100% - 30px);
-
-    margin: 55px auto;
-    padding: 34px 24px;
-
-    border-radius: 20px;
+    min-height: 500px;
   }
 
-  .admin-login h2 {
-    font-size: 1.65rem;
-    margin-bottom: 25px;
+  .admin-login-header {
+    padding: 45px 35px;
   }
 
-  .admin-login input {
-    padding: 13px 14px;
-    font-size: 0.92rem;
+  .admin-login-form {
+    padding: 45px 35px;
   }
 
-  .admin-login button {
-    padding: 13px 16px;
-    font-size: 0.92rem;
+  .admin-login-footer {
+    left: 35px;
+    right: 35px;
   }
 }
 
-@media (max-width: 380px) {
-  .admin-login {
-    width: calc(100% - 20px);
-    padding: 30px 18px;
-    margin: 40px auto;
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .admin-login-page {
+    min-height: calc(100vh - 64px);
+
+    align-items: flex-start;
+
+    padding: 35px 15px;
   }
 
-  .admin-login h2 {
-    font-size: 1.5rem;
+  .admin-login {
+    width: 100%;
+    min-height: auto;
+
+    display: block;
+
+    border-radius: 16px;
+  }
+
+  .admin-login-header {
+    padding: 36px 25px 30px;
+
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  }
+
+  .admin-login-icon {
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 20px;
+  }
+
+  .admin-login-header h1 {
+    font-size: 29px;
+  }
+
+  .admin-login-header p {
+    margin-top: 13px;
+  }
+
+  .admin-login-form {
+    padding: 30px 25px 70px;
+  }
+
+  .admin-login-form::before {
+    margin-bottom: 20px;
+  }
+
+  .admin-login-footer {
+    left: 25px;
+    right: 25px;
+    bottom: 23px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .admin-login-page {
+    padding: 25px 10px;
+  }
+
+  .admin-login-header {
+    padding: 30px 20px 25px;
+  }
+
+  .admin-login-form {
+    padding: 25px 20px 65px;
+  }
+
+  .admin-login-header h1 {
+    font-size: 25px;
+  }
+
+  .admin-input-wrap,
+  .admin-login-button {
+    height: 49px;
+  }
+
+  .admin-login-footer {
+    left: 20px;
+    right: 20px;
+
+    font-size: 5px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-login,
+  .admin-login * {
+    animation: none !important;
+    transition: none !important;
   }
 }
