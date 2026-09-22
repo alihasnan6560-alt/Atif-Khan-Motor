@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Backend server for Atif-Khan-Motors project",
+  "description": "Backend server for Hasnain-AutoMotive project",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
