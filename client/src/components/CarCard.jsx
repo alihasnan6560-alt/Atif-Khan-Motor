@@ -1,9 +1,13 @@
-
 import React, { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-
-import { FaHeart, FaArrowRight } from "react-icons/fa";
+import {
+  FaHeart,
+  FaArrowRight,
+  FaCalendarAlt,
+  FaTachometerAlt,
+  FaCogs,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 import "../styles/CarCard.css";
 
@@ -47,7 +51,6 @@ const CarCard = ({ car }) => {
 
       localStorage.setItem("wishlist", JSON.stringify(updated));
 
-      // Notify Header and other components immediately
       window.dispatchEvent(new Event("wishlistUpdated"));
 
       setWish(!wish);
@@ -67,6 +70,16 @@ const CarCard = ({ car }) => {
         }`
     : "";
 
+  const formatMileage = (mileage) => {
+    if (mileage === null || mileage === undefined || mileage === "") {
+      return null;
+    }
+
+    return `${Number(mileage).toLocaleString()} km`;
+  };
+
+  const condition = car.condition || "Premium";
+
   return (
     <article className="card">
       <Link to={`/car/${car._id}`} className="card-link">
@@ -83,6 +96,10 @@ const CarCard = ({ car }) => {
               No Image Available
             </div>
           )}
+
+          <div className="card-status">
+            <span>{condition}</span>
+          </div>
 
           <button
             type="button"
@@ -101,23 +118,66 @@ const CarCard = ({ car }) => {
         </div>
 
         <div className="card-body">
-          <div className="card-top">
-            <span className="card-label">PREMIUM</span>
+          <div className="card-heading">
+            <span className="card-label">
+              {car.make || "PREMIUM"}
+            </span>
+
+            {car.year && (
+              <span className="card-year">
+                {car.year}
+              </span>
+            )}
           </div>
 
           <h3 className="card-title">
             {car.name || "Luxury Vehicle"}
           </h3>
 
+          <div className="card-specs">
+            {car.year && (
+              <span className="spec-item">
+                <FaCalendarAlt />
+                {car.year}
+              </span>
+            )}
+
+            {formatMileage(car.mileage) && (
+              <span className="spec-item">
+                <FaTachometerAlt />
+                {formatMileage(car.mileage)}
+              </span>
+            )}
+
+            {car.transmission && (
+              <span className="spec-item">
+                <FaCogs />
+                {car.transmission}
+              </span>
+            )}
+          </div>
+
+          {car.location && (
+            <div className="card-location">
+              <FaMapMarkerAlt />
+              <span>{car.location}</span>
+            </div>
+          )}
+
           <div className="card-meta">
-            <span className="price">
-              {car.price != null
-                ? `${Number(car.price).toLocaleString()} AED`
-                : "Price on request"}
-            </span>
+            <div className="price-block">
+              <span className="price-label">PRICE</span>
+
+              <span className="price">
+                {car.price != null
+                  ? `${Number(car.price).toLocaleString()} AED`
+                  : "Price on request"}
+              </span>
+            </div>
 
             <span className="details-link">
-              Details <FaArrowRight />
+              View Details
+              <FaArrowRight />
             </span>
           </div>
         </div>

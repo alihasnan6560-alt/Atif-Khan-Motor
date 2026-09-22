@@ -1,5 +1,5 @@
 /* =========================================
-   ATIF KHAN MOTORS
+   HASNAIN AUTOMOTIVE
    Premium Luxury Car Card
    ========================================= */
 
@@ -8,20 +8,16 @@
   min-width: 0;
   position: relative;
   overflow: hidden;
-
   background: linear-gradient(
     145deg,
     rgba(18, 28, 48, 0.98),
     rgba(7, 13, 25, 0.98)
   );
-
   border: 1px solid rgba(70, 150, 255, 0.16);
   border-radius: 18px;
-
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
-
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
@@ -30,14 +26,11 @@
 
 .card:hover {
   transform: translateY(-8px);
-
   border-color: rgba(70, 150, 255, 0.5);
-
   box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 25px rgba(40, 130, 255, 0.12);
+    0 22px 55px rgba(0, 0, 0, 0.5),
+    0 0 28px rgba(40, 130, 255, 0.13);
 }
-
 
 /* =========================================
    Card Link
@@ -46,11 +39,9 @@
 .card-link {
   display: block;
   width: 100%;
-
   color: inherit;
   text-decoration: none;
 }
-
 
 /* =========================================
    Image Area
@@ -59,10 +50,8 @@
 .card-image-wrap {
   width: 100%;
   height: 245px;
-
   position: relative;
   overflow: hidden;
-
   background: #080e1b;
 }
 
@@ -70,14 +59,13 @@
   content: "";
   position: absolute;
   inset: 0;
-
-  background: linear-gradient(
-    to top,
-    rgba(5, 10, 20, 0.65),
-    rgba(5, 10, 20, 0.05) 55%,
-    transparent
-  );
-
+  background:
+    linear-gradient(
+      to top,
+      rgba(5, 10, 20, 0.72),
+      rgba(5, 10, 20, 0.08) 58%,
+      transparent
+    );
   pointer-events: none;
   z-index: 1;
 }
@@ -85,18 +73,17 @@
 .card-image {
   width: 100%;
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
-  transition: transform 0.5s ease;
+  transition:
+    transform 0.6s ease,
+    filter 0.4s ease;
 }
 
 .card:hover .card-image {
   transform: scale(1.06);
+  filter: brightness(1.04);
 }
-
 
 /* =========================================
    Image Placeholder
@@ -105,14 +92,11 @@
 .card-image-placeholder {
   width: 100%;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: #718096;
   font-size: 0.9rem;
-
   background:
     radial-gradient(
       circle at center,
@@ -122,6 +106,32 @@
     #080e1b;
 }
 
+/* =========================================
+   Condition Badge
+   ========================================= */
+
+.card-status {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 4;
+}
+
+.card-status span {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  color: #dceeff;
+  background: rgba(5, 15, 30, 0.72);
+  border: 1px solid rgba(100, 175, 255, 0.28);
+  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
 
 /* =========================================
    Wishlist Button
@@ -129,32 +139,22 @@
 
 .heart-btn {
   position: absolute;
-
   top: 15px;
   right: 15px;
-
   width: 42px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-
   background: rgba(5, 12, 25, 0.75);
-
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
   color: #ffffff;
   font-size: 17px;
-
   cursor: pointer;
-
   z-index: 5;
-
   transition:
     transform 0.25s ease,
     background 0.25s ease,
@@ -164,9 +164,7 @@
 
 .heart-btn:hover {
   transform: scale(1.1);
-
   background: rgba(20, 100, 200, 0.9);
-
   border-color: rgba(90, 170, 255, 0.7);
 }
 
@@ -179,43 +177,31 @@
   color: #ff1f4b;
 }
 
-
 /* =========================================
    View Vehicle Overlay
    ========================================= */
 
 .card-overlay {
   position: absolute;
-
   left: 16px;
   bottom: 16px;
-
   display: flex;
   align-items: center;
   gap: 7px;
-
   padding: 8px 12px;
-
   background: rgba(5, 12, 25, 0.72);
-
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
-
   color: #ffffff;
-
   font-size: 0.76rem;
   font-weight: 600;
-
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
   opacity: 0;
   transform: translateY(8px);
-
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
-
   z-index: 2;
 }
 
@@ -229,92 +215,146 @@
   font-size: 0.7rem;
 }
 
-
 /* =========================================
    Card Body
    ========================================= */
 
 .card-body {
-  min-height: 132px;
-
-  padding: 19px 20px 21px;
-
+  min-height: 190px;
+  padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-
 /* =========================================
-   Premium Label
+   Heading
    ========================================= */
 
-.card-top {
-  margin-bottom: 8px;
+.card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
 }
 
 .card-label {
-  display: inline-block;
-
+  display: inline-flex;
+  align-items: center;
   padding: 4px 8px;
-
   color: #6db7ff;
-
   background: rgba(30, 110, 220, 0.1);
-
   border: 1px solid rgba(70, 150, 255, 0.18);
   border-radius: 5px;
-
-  font-size: 0.62rem;
+  font-size: 0.61rem;
   font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
 }
 
+.card-year {
+  color: #7d8da5;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
 
 /* =========================================
    Car Name
    ========================================= */
 
 .card-title {
-  margin: 0 0 15px;
-
+  margin: 0 0 14px;
   color: #ffffff;
-
   font-size: 1.2rem;
   font-weight: 650;
-
   line-height: 1.35;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* =========================================
+   Vehicle Specifications
+   ========================================= */
+
+.card-specs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 13px;
+  margin-bottom: 11px;
+}
+
+.spec-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #aebbd0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.spec-item svg {
+  color: #55aaff;
+  font-size: 0.7rem;
+}
+
+/* =========================================
+   Location
+   ========================================= */
+
+.card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 15px;
+  color: #7889a2;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.card-location svg {
+  color: #55aaff;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
 
 /* =========================================
    Price + Details
    ========================================= */
 
 .card-meta {
+  margin-top: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-
   gap: 12px;
+}
+
+.price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.price-label {
+  color: #687990;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .price {
   color: #55aaff;
-
-  font-size: 1.05rem;
+  font-size: 1.04rem;
   font-weight: 700;
-
   white-space: nowrap;
 }
 
-
 /* =========================================
-   Details Link
+   Details Button
    ========================================= */
 
 .details-link {
@@ -322,47 +362,42 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-
-  padding: 9px 15px;
-
+  padding: 9px 14px;
   color: #ffffff;
-
   background: linear-gradient(
     135deg,
     #1677ff,
     #0754c7
   );
-
   border: 1px solid rgba(110, 190, 255, 0.3);
   border-radius: 9px;
-
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 600;
-
   text-decoration: none;
-
+  white-space: nowrap;
   box-shadow:
     0 5px 15px rgba(0, 100, 255, 0.2);
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
     filter 0.25s ease;
 }
 
+.card:hover .details-link {
+  box-shadow:
+    0 8px 22px rgba(0, 110, 255, 0.3);
+}
+
 .details-link:hover {
   transform: translateY(-2px);
-
   filter: brightness(1.1);
-
   box-shadow:
     0 8px 22px rgba(0, 110, 255, 0.35);
 }
 
 .details-link svg {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
 }
-
 
 /* =========================================
    Desktop
@@ -373,7 +408,6 @@
     height: 250px;
   }
 }
-
 
 /* =========================================
    Tablet
@@ -391,8 +425,11 @@
   .card-title {
     font-size: 1.1rem;
   }
-}
 
+  .card-specs {
+    gap: 6px 10px;
+  }
+}
 
 /* =========================================
    Mobile
@@ -408,7 +445,7 @@
   }
 
   .card-body {
-    min-height: 115px;
+    min-height: 175px;
     padding: 16px;
   }
 
@@ -416,28 +453,44 @@
     font-size: 1.05rem;
   }
 
+  .card-specs {
+    gap: 6px 9px;
+  }
+
+  .spec-item {
+    font-size: 0.69rem;
+  }
+
   .price {
-    font-size: 0.98rem;
+    font-size: 0.96rem;
   }
 
   .details-link {
-    padding: 8px 12px;
-    font-size: 0.82rem;
+    padding: 8px 11px;
+    font-size: 0.78rem;
   }
 
   .heart-btn {
     width: 38px;
     height: 38px;
-
     top: 12px;
     right: 12px;
+  }
+
+  .card-status {
+    top: 12px;
+    left: 12px;
+  }
+
+  .card-status span {
+    padding: 6px 8px;
+    font-size: 0.61rem;
   }
 
   .card-overlay {
     display: none;
   }
 }
-
 
 /* =========================================
    Small Mobile
@@ -453,11 +506,19 @@
   }
 
   .price {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 
   .details-link {
-    padding: 7px 10px;
-    font-size: 0.78rem;
+    padding: 7px 9px;
+    font-size: 0.74rem;
+  }
+
+  .card-specs {
+    gap: 5px 7px;
+  }
+
+  .spec-item {
+    font-size: 0.65rem;
   }
 }
