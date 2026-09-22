@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaHeart,
   FaUser,
   FaTimes,
   FaBars,
   FaWhatsapp,
+  FaArrowRight,
 } from "react-icons/fa";
-
 import "../styles/Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [wishlist, setWishlist] = useState([]);
   const [showWishlist, setShowWishlist] = useState(false);
@@ -20,7 +20,6 @@ const Header = () => {
 
   const wishlistRef = useRef(null);
 
-  // WhatsApp
   const whatsappNumber = "923045462472";
 
   const whatsappMessage = encodeURIComponent(
@@ -29,16 +28,15 @@ const Header = () => {
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
-  // Load wishlist
   useEffect(() => {
     const loadWishlist = () => {
       try {
-        const stored =
-          JSON.parse(localStorage.getItem("wishlist")) || [];
+        const stored = JSON.parse(
+          localStorage.getItem("wishlist") || "[]"
+        );
 
-        setWishlist(stored);
-      } catch (error) {
-        console.error("Wishlist error:", error);
+        setWishlist(Array.isArray(stored) ? stored : []);
+      } catch {
         setWishlist([]);
       }
     };
@@ -49,19 +47,11 @@ const Header = () => {
     window.addEventListener("storage", loadWishlist);
 
     return () => {
-      window.removeEventListener(
-        "wishlistUpdated",
-        loadWishlist
-      );
-
-      window.removeEventListener(
-        "storage",
-        loadWishlist
-      );
+      window.removeEventListener("wishlistUpdated", loadWishlist);
+      window.removeEventListener("storage", loadWishlist);
     };
   }, []);
 
-  // Close wishlist when clicking outside
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
@@ -72,28 +62,42 @@ const Header = () => {
       }
     };
 
-    document.addEventListener(
-      "mousedown",
-      handleOutsideClick
-    );
+    document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleOutsideClick
-      );
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
-  const handleWishlistClick = () => {
-    setShowWishlist((prev) => !prev);
-  };
-
-  const handleWishlistItemClick = (id) => {
+  useEffect(() => {
     setShowWishlist(false);
     setMobileMenu(false);
+  }, [location.pathname]);
 
-    navigate(`/car/${id}`);
+  useEffect(() => {
+    document.body.style.overflow = mobileMenu ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenu]);
+
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+
+    return location.pathname.startsWith(path);
+  };
+
+  const handleWishlistItemClick = (item) => {
+    setShowWishlist(false);
+
+    const id = item?.id || item?._id;
+
+    if (id) {
+      navigate(`/car/${id}`);
+    }
   };
 
   const closeMobileMenu = () => {
@@ -101,265 +105,389 @@ const Header = () => {
   };
 
   return (
-    <header className="noon-header">
+    <header className="ha-header">
+      <div className="ha-header-inner">
 
-      {/* LOGO */}
-      <div className="header-brand">
+        {/* LOGO */}
         <Link
           to="/"
-          className="logo-text"
-          onClick={closeMobileMenu}
+          className="ha-logo"
+          aria-label="Hasnain Automotive Home"
         >
-          <span className="logo-main">
-            HASNAIN
-          </span>
-
-          <span className="logo-sub">
-            AUTOMOTIVE
-          </span>
-        </Link>
-      </div>
-
-      {/* DESKTOP NAVIGATION */}
-      <nav className="desktop-nav">
-        <Link
-          to="/"
-          className="nav-link"
-        >
-          Home
+          <span className="ha-logo-main">HASNAIN</span>
+          <span className="ha-logo-line" />
+          <span className="ha-logo-sub">AUTOMOTIVE</span>
         </Link>
 
-        <Link
-          to="/about"
-          className="nav-link"
+        {/* DESKTOP NAV */}
+        <nav
+          className="ha-desktop-nav"
+          aria-label="Primary navigation"
         >
-          About Us
-        </Link>
-
-        <Link
-          to="/stock"
-          className="nav-link"
-        >
-          Available Stock
-        </Link>
-
-        <Link
-          to="/contact"
-          className="nav-link"
-        >
-          Contact Us
-        </Link>
-      </nav>
-
-      {/* HEADER ACTIONS */}
-      <div className="header-actions">
-
-        {/* WHATSAPP */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="whatsapp-header-btn"
-          aria-label="Contact us on WhatsApp"
-          title="Contact us on WhatsApp"
-        >
-          <FaWhatsapp />
-
-          <span>
-            WhatsApp
-          </span>
-        </a>
-
-        {/* WISHLIST */}
-        <div
-          className="wishlist-container"
-          ref={wishlistRef}
-        >
-          <button
-            type="button"
-            className="header-icon-btn wishlist-btn"
-            onClick={handleWishlistClick}
-            aria-label="Wishlist"
-            title="Wishlist"
-          >
-            <FaHeart />
-
-            {wishlist.length > 0 && (
-              <span className="wishlist-count">
-                {wishlist.length}
-              </span>
-            )}
-          </button>
-
-          {/* WISHLIST DROPDOWN */}
-          {showWishlist && (
-            <div className="wishlist-dropdown">
-
-              <div className="wishlist-dropdown-header">
-                <h3>
-                  My Wishlist
-                </h3>
-
-                <span>
-                  {wishlist.length} items
-                </span>
-              </div>
-
-              {wishlist.length === 0 ? (
-                <div className="wishlist-empty-dropdown">
-                  <FaHeart />
-
-                  <p>
-                    Your wishlist is empty.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="wishlist-list">
-                    {wishlist.map((item) => (
-                      <div
-                        key={item.id}
-                        className="wishlist-dropdown-item"
-                        onClick={() =>
-                          handleWishlistItemClick(
-                            item.id
-                          )
-                        }
-                      >
-                        {(item.imageUrl ||
-                          item.image) && (
-                          <img
-                            src={
-                              item.imageUrl ||
-                              item.image
-                            }
-                            alt={
-                              item.name ||
-                              "Vehicle"
-                            }
-                          />
-                        )}
-
-                        <div className="wishlist-item-info">
-                          <h4>
-                            {item.name ||
-                              "Vehicle"}
-                          </h4>
-
-                          {item.price && (
-                            <p>
-                              {Number(
-                                item.price
-                              ).toLocaleString()}{" "}
-                              AED
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Link
-                    to="/wishlist"
-                    className="wishlist-view-all"
-                    onClick={() =>
-                      setShowWishlist(false)
-                    }
-                  >
-                    View Full Wishlist →
-                  </Link>
-                </>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* ADMIN */}
-        <Link
-          to="/admin"
-          className="header-icon-btn"
-          aria-label="Admin Login"
-          title="Admin Login"
-        >
-          <FaUser />
-        </Link>
-
-        {/* MOBILE MENU BUTTON */}
-        <button
-          type="button"
-          className="mobile-menu"
-          onClick={() =>
-            setMobileMenu((prev) => !prev)
-          }
-          aria-label="Toggle navigation menu"
-          aria-expanded={mobileMenu}
-        >
-          {mobileMenu ? (
-            <FaTimes />
-          ) : (
-            <FaBars />
-          )}
-        </button>
-      </div>
-
-      {/* MOBILE NAVIGATION */}
-      {mobileMenu && (
-        <nav className="mobile-nav">
-
           <Link
             to="/"
-            onClick={closeMobileMenu}
+            className={`ha-nav-link ${
+              isActive("/") ? "active" : ""
+            }`}
           >
             Home
           </Link>
 
           <Link
             to="/about"
-            onClick={closeMobileMenu}
+            className={`ha-nav-link ${
+              isActive("/about") ? "active" : ""
+            }`}
           >
-            About Us
+            About
           </Link>
 
           <Link
             to="/stock"
-            onClick={closeMobileMenu}
+            className={`ha-nav-link ${
+              isActive("/stock") ? "active" : ""
+            }`}
           >
-            Available Stock
+            Collection
           </Link>
 
           <Link
             to="/contact"
-            onClick={closeMobileMenu}
+            className={`ha-nav-link ${
+              isActive("/contact") ? "active" : ""
+            }`}
           >
-            Contact Us
+            Contact
           </Link>
+        </nav>
 
+        {/* ACTIONS */}
+        <div className="ha-actions">
+
+          {/* WHATSAPP */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mobile-whatsapp-link"
-            onClick={closeMobileMenu}
+            className="ha-whatsapp"
+            aria-label="Contact Hasnain Automotive on WhatsApp"
           >
             <FaWhatsapp />
-            WhatsApp Contact
+            <span>WhatsApp</span>
           </a>
 
-          <Link
-            to="/wishlist"
-            onClick={closeMobileMenu}
+          {/* WISHLIST */}
+          <div
+            className="ha-wishlist-wrap"
+            ref={wishlistRef}
           >
-            Wishlist
-          </Link>
+            <button
+              type="button"
+              className={`ha-icon-btn ${
+                showWishlist ? "active" : ""
+              }`}
+              onClick={() =>
+                setShowWishlist((prev) => !prev)
+              }
+              aria-label="Wishlist"
+              aria-expanded={showWishlist}
+            >
+              <FaHeart />
 
+              {wishlist.length > 0 && (
+                <span className="ha-wishlist-count">
+                  {wishlist.length > 99
+                    ? "99+"
+                    : wishlist.length}
+                </span>
+              )}
+            </button>
+
+            {showWishlist && (
+              <div className="ha-wishlist-dropdown">
+
+                <div className="ha-wishlist-top">
+                  <div>
+                    <span>YOUR SELECTION</span>
+                    <h3>Wishlist</h3>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowWishlist(false)
+                    }
+                    aria-label="Close wishlist"
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
+
+                {wishlist.length === 0 ? (
+                  <div className="ha-wishlist-empty">
+                    <FaHeart />
+
+                    <h4>No vehicles saved</h4>
+
+                    <p>
+                      Add vehicles to your wishlist
+                      and they will appear here.
+                    </p>
+
+                    <Link
+                      to="/stock"
+                      onClick={() =>
+                        setShowWishlist(false)
+                      }
+                    >
+                      Browse Collection
+                      <FaArrowRight />
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    <div className="ha-wishlist-items">
+                      {wishlist
+                        .slice(0, 5)
+                        .map((item) => {
+                          const id =
+                            item.id || item._id;
+
+                          const image =
+                            item.imageUrl ||
+                            item.image;
+
+                          const name =
+                            item.name || "Vehicle";
+
+                          return (
+                            <button
+                              type="button"
+                              key={id}
+                              className="ha-wishlist-item"
+                              onClick={() =>
+                                handleWishlistItemClick(
+                                  item
+                                )
+                              }
+                            >
+                              <div className="ha-wishlist-image">
+                                {image && (
+                                  <img
+                                    src={image}
+                                    alt={name}
+                                    loading="lazy"
+                                  />
+                                )}
+                              </div>
+
+                              <div className="ha-wishlist-info">
+                                <strong>
+                                  {name}
+                                </strong>
+
+                                {item.price && (
+                                  <span>
+                                    {Number(
+                                      item.price
+                                    ).toLocaleString()}{" "}
+                                    AED
+                                  </span>
+                                )}
+                              </div>
+
+                              <FaArrowRight />
+                            </button>
+                          );
+                        })}
+                    </div>
+
+                    <Link
+                      to="/wishlist"
+                      className="ha-view-wishlist"
+                      onClick={() =>
+                        setShowWishlist(false)
+                      }
+                    >
+                      View Full Wishlist
+                      <FaArrowRight />
+                    </Link>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* ADMIN */}
           <Link
             to="/admin"
-            onClick={closeMobileMenu}
+            className={`ha-icon-btn ha-admin ${
+              isActive("/admin") ? "active" : ""
+            }`}
+            aria-label="Admin Login"
+            title="Admin Login"
           >
-            Admin Login
+            <FaUser />
           </Link>
 
-        </nav>
+          {/* MOBILE MENU */}
+          <button
+            type="button"
+            className={`ha-menu-btn ${
+              mobileMenu ? "active" : ""
+            }`}
+            onClick={() =>
+              setMobileMenu((prev) => !prev)
+            }
+            aria-label={
+              mobileMenu
+                ? "Close menu"
+                : "Open menu"
+            }
+            aria-expanded={mobileMenu}
+          >
+            {mobileMenu ? (
+              <FaTimes />
+            ) : (
+              <FaBars />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE OVERLAY */}
+      {mobileMenu && (
+        <div className="ha-mobile-overlay">
+          <div className="ha-mobile-content">
+
+            <div className="ha-mobile-intro">
+              <span>HASNAIN AUTOMOTIVE</span>
+              <small>THE COLLECTION</small>
+            </div>
+
+            <nav className="ha-mobile-nav">
+
+              <Link
+                to="/"
+                className={
+                  isActive("/")
+                    ? "active"
+                    : ""
+                }
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>01</small>
+                  Home
+                </span>
+
+                <FaArrowRight />
+              </Link>
+
+              <Link
+                to="/about"
+                className={
+                  isActive("/about")
+                    ? "active"
+                    : ""
+                }
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>02</small>
+                  About Us
+                </span>
+
+                <FaArrowRight />
+              </Link>
+
+              <Link
+                to="/stock"
+                className={
+                  isActive("/stock")
+                    ? "active"
+                    : ""
+                }
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>03</small>
+                  Collection
+                </span>
+
+                <FaArrowRight />
+              </Link>
+
+              <Link
+                to="/contact"
+                className={
+                  isActive("/contact")
+                    ? "active"
+                    : ""
+                }
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>04</small>
+                  Contact
+                </span>
+
+                <FaArrowRight />
+              </Link>
+
+              <Link
+                to="/wishlist"
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>05</small>
+                  Wishlist
+
+                  {wishlist.length > 0 && (
+                    <b>
+                      {wishlist.length}
+                    </b>
+                  )}
+                </span>
+
+                <FaArrowRight />
+              </Link>
+
+              <Link
+                to="/admin"
+                onClick={closeMobileMenu}
+              >
+                <span>
+                  <small>06</small>
+                  Admin
+                </span>
+
+                <FaArrowRight />
+              </Link>
+            </nav>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ha-mobile-whatsapp"
+              onClick={closeMobileMenu}
+            >
+              <span>
+                <FaWhatsapp />
+                Speak With Us
+              </span>
+
+              <FaArrowRight />
+            </a>
+
+            <div className="ha-mobile-footer">
+              <span>PREMIUM VEHICLES</span>
+              <span>LAHORE · PAKISTAN</span>
+            </div>
+
+          </div>
+        </div>
       )}
     </header>
   );

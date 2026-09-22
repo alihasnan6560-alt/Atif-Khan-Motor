@@ -1,7 +1,8 @@
-
-import React, { useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import {
   FaHeart,
@@ -19,12 +20,18 @@ import {
   FaDoorOpen,
   FaMapMarkerAlt,
   FaCheckCircle,
+  FaWhatsapp,
 } from "react-icons/fa";
+
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 import "../styles/CarDetails.css";
 
 const API_BASE =
   import.meta.env.VITE_API_BASE || "http://localhost:5000";
+
+const WHATSAPP_NUMBER = "923045462472";
 
 const CarDetails = () => {
   const { id } = useParams();
@@ -32,24 +39,53 @@ const CarDetails = () => {
 
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const [wish, setWish] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+
+  /* =====================================================
+     FETCH VEHICLE
+     ===================================================== */
 
   useEffect(() => {
     const fetchCar = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/cars/${id}`);
+        setLoading(true);
+        setFetchError(false);
+
+        const res = await axios.get(
+          `${API_BASE}/api/cars/${id}`
+        );
 
         setCar(res.data);
 
-        const list =
-          JSON.parse(localStorage.getItem("wishlist")) || [];
+        try {
+          const savedWishlist =
+            JSON.parse(
+              localStorage.getItem("wishlist")
+            ) || [];
 
-        setWish(
-          list.some((item) => item.id === res.data._id)
-        );
+          setWish(
+            savedWishlist.some(
+              (item) => item.id === res.data._id
+            )
+          );
+        } catch (wishlistError) {
+          console.warn(
+            "Wishlist data could not be read:",
+            wishlistError
+          );
+
+          setWish(false);
+        }
       } catch (err) {
-        console.error("Error fetching car:", err);
+        console.error(
+          "Error fetching vehicle:",
+          err
+        );
+
+        setCar(null);
+        setFetchError(true);
       } finally {
         setLoading(false);
       }
@@ -58,15 +94,45 @@ const CarDetails = () => {
     fetchCar();
   }, [id]);
 
+  /* =====================================================
+     DYNAMIC PAGE TITLE
+     ===================================================== */
+
+  useEffect(() => {
+    if (car?.name) {
+      document.title = `${car.name} | HASNAIN AUTOMOTIVE`;
+    } else {
+      document.title = "Vehicle Details | HASNAIN AUTOMOTIVE";
+    }
+
+    return () => {
+      document.title = "HASNAIN AUTOMOTIVE";
+    };
+  }, [car]);
+
+  /* =====================================================
+     GALLERY
+     ===================================================== */
+
   const galleryImages = useMemo(() => {
     if (!car) return [];
 
     const images = [
       car.imageUrl,
-      ...(Array.isArray(car.images) ? car.images : []),
+      ...(Array.isArray(car.images)
+        ? car.images
+        : []),
     ];
 
-    return [...new Set(images.filter(Boolean))];
+    return [
+      ...new Set(
+        images.filter(
+          (image) =>
+            typeof image === "string" &&
+            image.trim()
+        )
+      ),
+    ];
   }, [car]);
 
   const getImageUrl = (image) => {
@@ -80,9 +146,15 @@ const CarDetails = () => {
     }
 
     return `${API_BASE}${
-      image.startsWith("/") ? image : `/${image}`
+      image.startsWith("/")
+        ? image
+        : `/${image}`
     }`;
   };
+
+  /* =====================================================
+     FORMATTING HELPERS
+     ===================================================== */
 
   const formatNumber = (value) => {
     if (
@@ -112,11 +184,82 @@ const CarDetails = () => {
     return `${value}${suffix}`;
   };
 
+  /* =====================================================
+     DESCRIPTION FORMATTER
+     ===================================================== */
+
+  const descriptionContent = useMemo(() => {
+    if (!car?.description) {
+      return [
+        {
+          type: "text",
+          content:
+            "No description available for this vehicle.",
+        },
+      ];
+    }
+
+    const lines = String(car.description)
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (!lines.length) {
+      return [
+        {
+          type: "text",
+          content:
+            "No description available for this vehicle.",
+        },
+      ];
+    }
+
+    return lines.map((line) => {
+      const colonIndex = line.indexOf(":");
+
+      if (
+        colonIndex > 0 &&
+        colonIndex < line.length - 1
+      ) {
+        return {
+          type: "detail",
+          label: line
+            .slice(0, colonIndex)
+            .trim(),
+          value: line
+            .slice(colonIndex + 1)
+            .trim(),
+        };
+      }
+
+      return {
+        type: "text",
+        content: line,
+      };
+    });
+  }, [car]);
+
+  /* =====================================================
+     WISHLIST
+     ===================================================== */
+
   const toggle = () => {
     if (!car) return;
 
-    const list =
-      JSON.parse(localStorage.getItem("wishlist")) || [];
+    let list = [];
+
+    try {
+      list =
+        JSON.parse(
+          localStorage.getItem("wishlist")
+        ) || [];
+    } catch (error) {
+      console.warn(
+        "Invalid wishlist data. Resetting wishlist."
+      );
+
+      list = [];
+    }
 
     let updated;
 
@@ -144,6 +287,10 @@ const CarDetails = () => {
     setWish(!wish);
   };
 
+  /* =====================================================
+     IMAGE NAVIGATION
+     ===================================================== */
+
   const previousImage = () => {
     if (!galleryImages.length) return;
 
@@ -164,32 +311,107 @@ const CarDetails = () => {
     );
   };
 
-  const handleInquiry = () => {
-    const message = `Hello Hasnain Automotive, I am interested in the ${car.name} listed for ${formatNumber(
-      car.price
-    )} AED. Please share more details.`;
+  /* =====================================================
+     KEYBOARD GALLERY NAVIGATION
+     ===================================================== */
 
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(message)
-        .then(() => {
-          alert(
-            "Inquiry message copied. You can now send it through your preferred contact method."
-          );
-        })
-        .catch(() => {
-          alert(message);
-        });
-    } else {
-      alert(message);
-    }
+  useEffect(() => {
+    if (galleryImages.length <= 1) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        previousImage();
+      }
+
+      if (event.key === "ArrowRight") {
+        nextImage();
+      }
+    };
+
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+    return () => {
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+    };
+  }, [galleryImages.length]);
+
+  /* =====================================================
+     WHATSAPP INQUIRY
+     ===================================================== */
+
+  const handleInquiry = () => {
+    if (!car) return;
+
+    const message =
+      `Hello HASNAIN AUTOMOTIVE,\n\n` +
+      `I am interested in the ${car.name} listed on your website.\n\n` +
+      `Price: ${formatNumber(car.price)} AED\n` +
+      `Year: ${car.year || "N/A"}\n` +
+      `Location: ${car.location || "N/A"}\n\n` +
+      `Please share more details about this vehicle.`;
+
+    const whatsappUrl =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=` +
+      encodeURIComponent(message);
+
+    window.open(
+      whatsappUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
+
+  /* =====================================================
+     LOADING
+     ===================================================== */
 
   if (loading) {
     return (
       <div className="details-loading">
         <div className="details-loader"></div>
-        <p>Loading vehicle details...</p>
+
+        <p>
+          Loading vehicle details...
+        </p>
+      </div>
+    );
+  }
+
+  /* =====================================================
+     ERROR / NOT FOUND
+     ===================================================== */
+
+  if (fetchError) {
+    return (
+      <div className="details-not-found">
+        <span>UNABLE TO LOAD VEHICLE</span>
+
+        <h2>
+          We couldn't load this vehicle right now.
+        </h2>
+
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className="back-collection-btn"
+        >
+          Try Again
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/stock")}
+          className="back-collection-btn"
+        >
+          <FaArrowLeft />
+          Back to Collection
+        </button>
       </div>
     );
   }
@@ -205,7 +427,7 @@ const CarDetails = () => {
 
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/stock")}
           className="back-collection-btn"
         >
           <FaArrowLeft />
@@ -215,8 +437,17 @@ const CarDetails = () => {
     );
   }
 
+  /* =====================================================
+     CURRENT IMAGE
+     ===================================================== */
+
   const currentImage =
-    galleryImages[activeImage] || car.imageUrl;
+    galleryImages[activeImage] ||
+    car.imageUrl;
+
+  /* =====================================================
+     SPECIFICATIONS
+     ===================================================== */
 
   const specifications = [
     {
@@ -242,7 +473,9 @@ const CarDetails = () => {
     {
       label: "Engine CC",
       value: car.engineCC
-        ? `${formatNumber(car.engineCC)} CC`
+        ? `${formatNumber(
+            car.engineCC
+          )} CC`
         : "—",
       icon: <FaCogs />,
     },
@@ -258,9 +491,14 @@ const CarDetails = () => {
     },
     {
       label: "Mileage",
-      value: car.mileage
-        ? `${formatNumber(car.mileage)} km`
-        : "—",
+      value:
+        car.mileage !== null &&
+        car.mileage !== undefined &&
+        car.mileage !== ""
+          ? `${formatNumber(
+              car.mileage
+            )} km`
+          : "—",
       icon: <FaTachometerAlt />,
     },
     {
@@ -295,9 +533,47 @@ const CarDetails = () => {
     },
   ];
 
+  /* =====================================================
+     VEHICLE SUMMARY
+     ===================================================== */
+
+  const vehicleSummary = [
+    {
+      label: "Year",
+      value: displayValue(car.year),
+    },
+    {
+      label: "Transmission",
+      value: car.transmission || "—",
+    },
+    {
+      label: "Fuel",
+      value: car.fuelType || "—",
+    },
+    {
+      label: "Mileage",
+      value:
+        car.mileage !== null &&
+        car.mileage !== undefined &&
+        car.mileage !== ""
+          ? `${formatNumber(
+              car.mileage
+            )} km`
+          : "—",
+    },
+    {
+      label: "Location",
+      value: car.location || "—",
+    },
+  ];
+
   return (
     <main className="details-page">
       <div className="details-wrap">
+
+        {/* =================================================
+            TOP BAR
+            ================================================= */}
 
         <div className="details-topbar">
           <button
@@ -306,13 +582,20 @@ const CarDetails = () => {
             onClick={() => navigate(-1)}
           >
             <FaArrowLeft />
-            <span>Back to Collection</span>
+
+            <span>
+              Back to Collection
+            </span>
           </button>
 
           <span className="details-badge">
             HASNAIN AUTOMOTIVE
           </span>
         </div>
+
+        {/* =================================================
+            HEADER
+            ================================================= */}
 
         <header className="details-header">
           <div className="details-title-area">
@@ -322,15 +605,26 @@ const CarDetails = () => {
 
             <h1>{car.name}</h1>
 
-            {(car.make || car.model || car.year) && (
+            {(car.make ||
+              car.model ||
+              car.year) && (
               <p className="details-subtitle">
                 {car.make && car.make}
-                {car.make && car.model && " • "}
-                {car.model && car.model}
-                {(car.make || car.model) &&
+
+                {car.make &&
+                  car.model &&
+                  " • "}
+
+                {car.model &&
+                  car.model}
+
+                {(car.make ||
+                  car.model) &&
                   car.year &&
                   " • "}
-                {car.year && car.year}
+
+                {car.year &&
+                  car.year}
               </p>
             )}
           </div>
@@ -351,11 +645,17 @@ const CarDetails = () => {
           </button>
         </header>
 
+        {/* =================================================
+            IMAGE GALLERY
+            ================================================= */}
+
         <section className="details-media">
           <div className="main-img">
             <img
-              src={getImageUrl(currentImage)}
-              alt={car.name}
+              src={getImageUrl(
+                currentImage
+              )}
+              alt={`${car.name} vehicle`}
             />
 
             {galleryImages.length > 1 && (
@@ -363,7 +663,9 @@ const CarDetails = () => {
                 <button
                   type="button"
                   className="gallery-arrow gallery-prev"
-                  onClick={previousImage}
+                  onClick={
+                    previousImage
+                  }
                   aria-label="Previous image"
                 >
                   <FaChevronLeft />
@@ -372,7 +674,9 @@ const CarDetails = () => {
                 <button
                   type="button"
                   className="gallery-arrow gallery-next"
-                  onClick={nextImage}
+                  onClick={
+                    nextImage
+                  }
                   aria-label="Next image"
                 >
                   <FaChevronRight />
@@ -388,28 +692,65 @@ const CarDetails = () => {
 
           {galleryImages.length > 1 && (
             <div className="thumbs">
-              {galleryImages.map((img, index) => (
-                <button
-                  type="button"
-                  key={`${img}-${index}`}
-                  className={`thumb ${
-                    activeImage === index
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    setActiveImage(index)
-                  }
-                >
-                  <img
-                    src={getImageUrl(img)}
-                    alt={`${car.name} ${index + 1}`}
-                  />
-                </button>
-              ))}
+              {galleryImages.map(
+                (img, index) => (
+                  <button
+                    type="button"
+                    key={`${img}-${index}`}
+                    className={`thumb ${
+                      activeImage ===
+                      index
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      setActiveImage(
+                        index
+                      )
+                    }
+                    aria-label={`View image ${
+                      index + 1
+                    }`}
+                  >
+                    <img
+                      src={getImageUrl(img)}
+                      alt={`${car.name} ${
+                        index + 1
+                      }`}
+                    />
+                  </button>
+                )
+              )}
             </div>
           )}
         </section>
+
+        {/* =================================================
+            VEHICLE SUMMARY
+            ================================================= */}
+
+        <section className="vehicle-summary">
+          {vehicleSummary.map(
+            (item) => (
+              <div
+                className="summary-item"
+                key={item.label}
+              >
+                <span>
+                  {item.label}
+                </span>
+
+                <strong>
+                  {item.value}
+                </strong>
+              </div>
+            )
+          )}
+        </section>
+
+        {/* =================================================
+            PRICE + DESCRIPTION
+            ================================================= */}
 
         <section className="details-info">
           <div className="price-block">
@@ -419,7 +760,9 @@ const CarDetails = () => {
 
             <div className="details-price">
               <span>
-                {formatNumber(car.price)}
+                {formatNumber(
+                  car.price
+                )}
               </span>
 
               <small>AED</small>
@@ -433,12 +776,45 @@ const CarDetails = () => {
               VEHICLE DESCRIPTION
             </span>
 
-            <p>
-              {car.description ||
-                "No description available for this vehicle."}
-            </p>
+            <div className="description-content">
+              {descriptionContent.map(
+                (item, index) => {
+                  if (
+                    item.type ===
+                    "detail"
+                  ) {
+                    return (
+                      <div
+                        className="description-detail"
+                        key={`${item.label}-${index}`}
+                      >
+                        <span>
+                          {item.label}
+                        </span>
+
+                        <strong>
+                          {item.value}
+                        </strong>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <p
+                      key={`description-${index}`}
+                    >
+                      {item.content}
+                    </p>
+                  );
+                }
+              )}
+            </div>
           </div>
         </section>
+
+        {/* =================================================
+            SPECIFICATIONS
+            ================================================= */}
 
         <section className="vehicle-specs">
           <div className="section-heading">
@@ -446,42 +822,59 @@ const CarDetails = () => {
               VEHICLE INFORMATION
             </span>
 
-            <h2>Specifications</h2>
+            <h2>
+              Specifications
+            </h2>
 
             <p>
-              Everything you need to know about this vehicle
+              Everything you need to know
+              about this vehicle
             </p>
           </div>
 
           <div className="specs-grid">
-            {specifications.map((spec) => (
-              <div
-                className="spec-card"
-                key={spec.label}
-              >
-                <div className="spec-icon">
-                  {spec.icon}
-                </div>
+            {specifications.map(
+              (spec) => (
+                <div
+                  className="spec-card"
+                  key={spec.label}
+                >
+                  <div className="spec-icon">
+                    {spec.icon}
+                  </div>
 
-                <div className="spec-content">
-                  <span>{spec.label}</span>
+                  <div className="spec-content">
+                    <span>
+                      {spec.label}
+                    </span>
 
-                  <strong>
-                    {spec.value || "—"}
-                  </strong>
+                    <strong>
+                      {spec.value ||
+                        "—"}
+                    </strong>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </section>
+
+        {/* =================================================
+            ACTIONS
+            ================================================= */}
 
         <section className="details-actions">
           <button
             type="button"
             className="inquiry-btn"
-            onClick={handleInquiry}
+            onClick={
+              handleInquiry
+            }
           >
-            Enquire About This Car
+            <FaWhatsapp />
+
+            Enquire on WhatsApp
+
             <span>→</span>
           </button>
 
@@ -500,6 +893,10 @@ const CarDetails = () => {
           </button>
         </section>
 
+        {/* =================================================
+            TRUST
+            ================================================= */}
+
         <section className="details-trust">
           <div>
             <span className="trust-number">
@@ -507,8 +904,14 @@ const CarDetails = () => {
             </span>
 
             <div>
-              <strong>Premium Collection</strong>
-              <p>Explore selected vehicles</p>
+              <strong>
+                Premium Collection
+              </strong>
+
+              <p>
+                Explore selected
+                vehicles
+              </p>
             </div>
           </div>
 
@@ -518,8 +921,14 @@ const CarDetails = () => {
             </span>
 
             <div>
-              <strong>Vehicle Information</strong>
-              <p>Clear details before inquiry</p>
+              <strong>
+                Vehicle Information
+              </strong>
+
+              <p>
+                Clear details before
+                inquiry
+              </p>
             </div>
           </div>
 
@@ -529,8 +938,14 @@ const CarDetails = () => {
             </span>
 
             <div>
-              <strong>Customer Assistance</strong>
-              <p>Get in touch for more details</p>
+              <strong>
+                Customer Assistance
+              </strong>
+
+              <p>
+                Get in touch for more
+                details
+              </p>
             </div>
           </div>
         </section>

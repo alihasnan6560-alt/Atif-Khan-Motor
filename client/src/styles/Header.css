@@ -1,337 +1,229 @@
-.noon-header {
+
+/* =========================================================
+   HASNAIN AUTOMOTIVE
+   LUXURY AUTOMOTIVE HEADER
+========================================================= */
+
+.ha-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-
   width: 100%;
-  height: 100px;
-  min-height: 76px;
-
-  display: flex;
-  align-items: center;
-  gap: 30px;
-
-  padding: 0 55px;
-
-  box-sizing: border-box;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(6, 10, 23, 0.98),
-      rgba(5, 8, 18, 0.96)
-    );
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
-
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.2);
-
+  height: 74px;
+  background: rgba(5, 8, 15, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
+.ha-header-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 46px;
+}
 
 /* =========================================================
    LOGO
 ========================================================= */
 
-.header-brand {
-  flex-shrink: 0;
-}
-
-.logo-text {
-  display: flex;
+.ha-logo {
+  display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-
+  flex-shrink: 0;
+  color: #fff;
   text-decoration: none;
+}
 
+.ha-logo-main {
+  font-family: "Manrope", sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 3px;
   line-height: 1;
 }
 
-.logo-main {
-  color: #ffffff;
+.ha-logo-line {
+  width: 30px;
+  height: 1px;
+  margin: 5px 0 4px;
+  background: #7185e8;
+}
 
-  font-size: 25px;
+.ha-logo-sub {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 6.5px;
   font-weight: 700;
-
-  letter-spacing: 2.2px;
-}
-
-.logo-sub {
-  margin-top: 4px;
-
-  color: #718ce8;
-
-  font-size: 12px;
-  font-weight: 600;
-
   letter-spacing: 4px;
+  line-height: 1;
 }
-
 
 /* =========================================================
-   DESKTOP NAVIGATION
+   DESKTOP NAV
 ========================================================= */
 
-.desktop-nav {
+.ha-desktop-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  gap: 50px;
-
+  gap: 36px;
   margin-left: auto;
+  margin-right: 42px;
 }
 
-.nav-link {
+.ha-nav-link {
   position: relative;
-
-  padding: 28px 0;
-
-  color: #929bad;
-
+  display: flex;
+  align-items: center;
+  height: 74px;
+  color: rgba(255, 255, 255, 0.48);
   text-decoration: none;
-
-  font-size: 12px;
-  font-weight: 500;
-
-  transition:
-    color 0.25s ease;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: color 0.25s ease;
 }
 
-.nav-link::after {
+.ha-nav-link::after {
   content: "";
-
   position: absolute;
-
-  left: 50%;
+  left: 0;
   bottom: 18px;
-
   width: 0;
-  height: 2px;
-
-  transform: translateX(-50%);
-
-  border-radius: 10px;
-
-  background: linear-gradient(
-    90deg,
-    #5279e5,
-    #8064dc
-  );
-
-  transition:
-    width 0.25s ease;
+  height: 1px;
+  background: #8395ef;
+  transition: width 0.25s ease;
 }
 
-.nav-link:hover {
-  color: #ffffff;
+.ha-nav-link:hover,
+.ha-nav-link.active {
+  color: #fff;
 }
 
-.nav-link:hover::after {
-  width: 22px;
+.ha-nav-link:hover::after,
+.ha-nav-link.active::after {
+  width: 100%;
 }
-
 
 /* =========================================================
    HEADER ACTIONS
 ========================================================= */
 
-.header-actions {
+.ha-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  margin-left: 5px;
+  gap: 7px;
+  flex-shrink: 0;
 }
 
-
-/* =========================================================
-   WHATSAPP BUTTON
-========================================================= */
-
-.whatsapp-header-btn {
-  min-height: 40px;
-
+.ha-whatsapp {
+  height: 38px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   gap: 8px;
-
-  padding: 0 15px;
-
-  border: 1px solid rgba(92, 220, 145, 0.25);
-  border-radius: 9px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(37, 184, 96, 0.16),
-      rgba(25, 129, 72, 0.09)
-    );
-
-  color: #8ce0ad;
-
+  margin-right: 5px;
+  padding: 0 13px;
+  border: 1px solid rgba(89, 208, 133, 0.2);
+  border-radius: 7px;
+  background: rgba(59, 185, 103, 0.055);
+  color: #8bd9a5;
   text-decoration: none;
-
-  font-size: 11px;
-  font-weight: 600;
-
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
 }
 
-.whatsapp-header-btn svg {
+.ha-whatsapp svg {
   font-size: 15px;
 }
 
-.whatsapp-header-btn:hover {
-  transform: translateY(-1px);
-
-  border-color: rgba(94, 229, 148, 0.5);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(37, 184, 96, 0.23),
-      rgba(25, 129, 72, 0.14)
-    );
-
-  color: #b3f2ca;
-
-  box-shadow:
-    0 8px 22px rgba(28, 170, 89, 0.13);
+.ha-whatsapp:hover {
+  border-color: rgba(89, 208, 133, 0.4);
+  background: rgba(59, 185, 103, 0.11);
+  color: #b9f2cb;
 }
 
-
-/* =========================================================
-   ICON BUTTONS
-========================================================= */
-
-.header-icon-btn {
+.ha-icon-btn,
+.ha-menu-btn {
   position: relative;
-
-  width: 45px;
-  height: 45px;
-
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  flex-shrink: 0;
-
   padding: 0;
-
   border: 1px solid rgba(255, 255, 255, 0.075);
-  border-radius: 9px;
-
-  background: rgba(255, 255, 255, 0.025);
-
-  color: #aeb6c8;
-
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.48);
   text-decoration: none;
-
   cursor: pointer;
-
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease,
-    transform 0.25s ease;
+  transition: all 0.25s ease;
 }
 
-.header-icon-btn:hover {
-  transform: translateY(-1px);
-
-  color: #ffffff;
-
-  border-color: rgba(105, 134, 229, 0.3);
-
-  background: rgba(86, 113, 215, 0.08);
+.ha-icon-btn:hover,
+.ha-icon-btn.active,
+.ha-menu-btn:hover,
+.ha-menu-btn.active {
+  border-color: rgba(119, 140, 231, 0.3);
+  background: rgba(104, 124, 218, 0.07);
+  color: #fff;
 }
 
-.header-icon-btn svg {
-  font-size: 17px;
+.ha-icon-btn svg {
+  font-size: 13px;
 }
-
 
 /* =========================================================
    WISHLIST COUNT
 ========================================================= */
 
-.wishlist-count {
+.ha-wishlist-count {
   position: absolute;
-
   top: -5px;
   right: -5px;
-
-  min-width: 17px;
-  height: 17px;
-
+  min-width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 0 4px;
-
-  box-sizing: border-box;
-
-  border: 2px solid #070b17;
-  border-radius: 50px;
-
-  background: #526fe0;
-
-  color: #ffffff;
-
-  font-size: 8px;
-  font-weight: 700;
+  border: 2px solid #05080f;
+  border-radius: 20px;
+  background: #7185e8;
+  color: #fff;
+  font-size: 7px;
+  font-weight: 800;
 }
-
 
 /* =========================================================
    WISHLIST DROPDOWN
 ========================================================= */
 
-.wishlist-container {
+.ha-wishlist-wrap {
   position: relative;
 }
 
-.wishlist-dropdown {
+.ha-wishlist-dropdown {
   position: absolute;
-
   top: calc(100% + 13px);
   right: 0;
-
-  width: 330px;
-
+  width: 345px;
   overflow: hidden;
-
-  border: 1px solid rgba(105, 132, 224, 0.18);
-  border-radius: 15px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #10172d,
-      #080d1c
-    );
-
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.45);
-
-  animation: wishlistDrop 0.2s ease;
+  border: 1px solid rgba(132, 149, 230, 0.16);
+  border-radius: 10px;
+  background: #0b101b;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+  animation: haWishlistOpen 0.2s ease;
 }
 
-@keyframes wishlistDrop {
+@keyframes haWishlistOpen {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-5px);
   }
 
   to {
@@ -340,448 +232,492 @@
   }
 }
 
-.wishlist-dropdown-header {
+.ha-wishlist-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  padding: 15px 17px;
-
+  padding: 17px 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.wishlist-dropdown-header h3 {
+.ha-wishlist-top span {
+  display: block;
+  margin-bottom: 4px;
+  color: #7385d7;
+  font-size: 6px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.ha-wishlist-top h3 {
   margin: 0;
-
-  color: #e9edf5;
-
-  font-size: 13px;
-  font-weight: 600;
+  color: #f2f4f8;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.wishlist-dropdown-header span {
-  color: #69758e;
-
-  font-size: 10px;
+.ha-wishlist-top button {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #707b8f;
+  cursor: pointer;
 }
 
-.wishlist-list {
+.ha-wishlist-top button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* =========================================================
+   WISHLIST ITEMS
+========================================================= */
+
+.ha-wishlist-items {
   max-height: 300px;
-
   overflow-y: auto;
 }
 
-.wishlist-dropdown-item {
+.ha-wishlist-item {
+  width: 100%;
   display: flex;
   align-items: center;
-
   gap: 12px;
-
-  padding: 12px 15px;
-
-  cursor: pointer;
-
+  padding: 11px 15px;
+  border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.045);
-
-  transition:
-    background 0.2s ease;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.wishlist-dropdown-item:hover {
-  background: rgba(92, 119, 220, 0.07);
+.ha-wishlist-item:hover {
+  background: rgba(108, 128, 220, 0.065);
 }
 
-.wishlist-dropdown-item img {
-  width: 52px;
-  height: 42px;
-
+.ha-wishlist-image {
+  width: 58px;
+  height: 43px;
   flex-shrink: 0;
-
-  object-fit: cover;
-
-  border-radius: 7px;
-
-  background: #111827;
-}
-
-.wishlist-item-info {
-  min-width: 0;
-}
-
-.wishlist-item-info h4 {
-  margin: 0;
-
   overflow: hidden;
+  border-radius: 5px;
+  background: #151b27;
+}
 
-  color: #dce2ec;
+.ha-wishlist-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 
-  font-size: 11px;
-  font-weight: 600;
+.ha-wishlist-info {
+  min-width: 0;
+  flex: 1;
+}
 
+.ha-wishlist-info strong {
+  display: block;
+  overflow: hidden;
+  color: #dce1e9;
+  font-size: 10px;
+  font-weight: 700;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.wishlist-item-info p {
-  margin: 5px 0 0;
-
-  color: #7189df;
-
-  font-size: 10px;
+.ha-wishlist-info span {
+  display: block;
+  margin-top: 4px;
+  color: #8294e8;
+  font-size: 8px;
+  font-weight: 600;
 }
 
-.wishlist-empty-dropdown {
+.ha-wishlist-item > svg {
+  flex-shrink: 0;
+  color: #4c5870;
+  font-size: 8px;
+}
+
+.ha-wishlist-item:hover > svg {
+  color: #8fa0ee;
+}
+
+.ha-wishlist-empty {
+  min-height: 215px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  min-height: 150px;
-
-  color: #69748a;
+  padding: 25px;
+  text-align: center;
 }
 
-.wishlist-empty-dropdown svg {
-  margin-bottom: 10px;
-
-  color: #4b5873;
-
-  font-size: 20px;
+.ha-wishlist-empty > svg {
+  margin-bottom: 14px;
+  color: #495673;
+  font-size: 21px;
 }
 
-.wishlist-empty-dropdown p {
-  margin: 0;
-
+.ha-wishlist-empty h4 {
+  margin: 0 0 7px;
+  color: #dce1e9;
   font-size: 11px;
 }
 
-.wishlist-view-all {
-  display: block;
+.ha-wishlist-empty p {
+  max-width: 215px;
+  margin: 0;
+  color: #687388;
+  font-size: 9px;
+  line-height: 1.6;
+}
 
-  padding: 14px 17px;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.055);
-
-  color: #8299ea;
-
+.ha-wishlist-empty a,
+.ha-view-wishlist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8b9cec;
   text-decoration: none;
-
-  text-align: center;
-
-  font-size: 10px;
-  font-weight: 600;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
+  font-size: 9px;
+  font-weight: 700;
 }
 
-.wishlist-view-all:hover {
-  background: rgba(86, 113, 215, 0.06);
-
-  color: #a7b9ff;
+.ha-wishlist-empty a {
+  margin-top: 16px;
 }
 
+.ha-wishlist-empty a svg,
+.ha-view-wishlist svg {
+  font-size: 7px;
+}
+
+.ha-view-wishlist {
+  min-height: 45px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.ha-view-wishlist:hover {
+  background: rgba(109, 128, 219, 0.06);
+}
 
 /* =========================================================
    MOBILE MENU BUTTON
 ========================================================= */
 
-.mobile-menu {
+.ha-menu-btn {
   display: none;
+}
 
-  width: 40px;
-  height: 40px;
+/* =========================================================
+   MOBILE OVERLAY
+========================================================= */
 
+.ha-mobile-overlay {
+  position: fixed;
+  inset: 74px 0 0;
+  z-index: 999;
+  overflow-y: auto;
+  background: #05080f;
+}
+
+.ha-mobile-content {
+  min-height: calc(100vh - 74px);
+  padding: 28px 22px 24px;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(82, 101, 204, 0.12),
+      transparent 30%
+    ),
+    #05080f;
+}
+
+.ha-mobile-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ha-mobile-intro span {
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.ha-mobile-intro small {
+  color: #6575ba;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ha-mobile-nav a {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ha-mobile-nav a > span {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.ha-mobile-nav a > span small {
+  width: 22px;
+  color: #3f4b64;
+  font-size: 7px;
+  font-weight: 700;
+}
+
+.ha-mobile-nav a > svg {
+  color: #39445b;
+  font-size: 10px;
+}
+
+.ha-mobile-nav a:hover,
+.ha-mobile-nav a.active {
+  color: #fff;
+}
+
+.ha-mobile-nav a:hover > svg,
+.ha-mobile-nav a.active > svg {
+  color: #8295ef;
+  transform: translateX(3px);
+}
+
+.ha-mobile-nav b {
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0;
-
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  border-radius: 9px;
-
-  background: rgba(255, 255, 255, 0.025);
-
-  color: #c1c9d9;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+  margin-left: -7px;
+  border-radius: 20px;
+  background: #6e82e5;
+  color: #fff;
+  font-size: 7px;
 }
 
-.mobile-menu:hover {
-  background: rgba(86, 113, 215, 0.08);
-
-  border-color: rgba(105, 134, 229, 0.3);
-
-  color: #ffffff;
-}
-
-.mobile-menu svg {
-  font-size: 15px;
-}
-
-
-/* =========================================================
-   MOBILE NAVIGATION
-========================================================= */
-
-.mobile-nav {
-  position: absolute;
-
-  top: calc(100% + 1px);
-  left: 0;
-  right: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  padding: 10px 16px 16px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-
-  background:
-    linear-gradient(
-      180deg,
-      #080d1c,
-      #050914
-    );
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.35);
-
-  animation: mobileNavOpen 0.2s ease;
-}
-
-@keyframes mobileNavOpen {
-  from {
-    opacity: 0;
-    transform: translateY(-7px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mobile-nav a {
+.ha-mobile-whatsapp {
+  min-height: 56px;
   display: flex;
   align-items: center;
-
-  min-height: 48px;
-
-  padding: 0 14px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
-
-  color: #a4adbf;
-
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0 17px;
+  border: 1px solid rgba(76, 194, 119, 0.18);
+  border-radius: 7px;
+  background: rgba(60, 181, 101, 0.045);
+  color: #86d5a1;
   text-decoration: none;
-
-  font-size: 12px;
-  font-weight: 500;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    padding-left 0.2s ease;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-.mobile-nav a:last-child {
-  border-bottom: 0;
+.ha-mobile-whatsapp span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.mobile-nav a:hover {
-  padding-left: 18px;
-
-  background: rgba(83, 110, 216, 0.06);
-
-  color: #ffffff;
-}
-
-.mobile-whatsapp-link {
-  gap: 9px;
-
-  color: #80dba2 !important;
-}
-
-.mobile-whatsapp-link svg {
+.ha-mobile-whatsapp svg {
   font-size: 15px;
 }
 
-
-/* =========================================================
-   RESPONSIVE — 1100px
-========================================================= */
-
-@media (max-width: 1100px) {
-  .noon-header {
-    padding: 0 30px;
-
-    gap: 20px;
-  }
-
-  .desktop-nav {
-    gap: 22px;
-  }
-
-  .nav-link {
-    font-size: 11px;
-  }
-
-  .whatsapp-header-btn {
-    padding: 0 12px;
-  }
+.ha-mobile-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
-
 /* =========================================================
-   RESPONSIVE — 900px
+   TABLET
 ========================================================= */
 
-@media (max-width: 900px) {
-  .noon-header {
-    min-height: 70px;
-
-    padding: 0 22px;
+@media (max-width: 1050px) {
+  .ha-header-inner {
+    padding: 0 30px;
   }
 
-  .desktop-nav {
+  .ha-desktop-nav {
+    gap: 25px;
+    margin-right: 25px;
+  }
+
+  .ha-whatsapp span {
     display: none;
   }
 
-  .header-actions {
+  .ha-whatsapp {
+    width: 38px;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+  .ha-header {
+    height: 68px;
+  }
+
+  .ha-header-inner {
+    padding: 0 20px;
+  }
+
+  .ha-desktop-nav {
+    display: none;
+  }
+
+  .ha-actions {
     margin-left: auto;
   }
 
-  .mobile-menu {
+  .ha-menu-btn {
     display: flex;
   }
-}
 
-
-/* =========================================================
-   RESPONSIVE — 600px
-========================================================= */
-
-@media (max-width: 600px) {
-  .noon-header {
-    min-height: 66px;
-
-    padding: 0 15px;
-
-    gap: 10px;
+  .ha-mobile-overlay {
+    inset: 68px 0 0;
   }
 
-  .logo-main {
-    font-size: 15px;
-
-    letter-spacing: 1.8px;
-  }
-
-  .logo-sub {
-    font-size: 7px;
-
-    letter-spacing: 3.5px;
-  }
-
-  .header-actions {
-    gap: 7px;
-  }
-
-  .whatsapp-header-btn {
-    width: 39px;
-    height: 39px;
-
-    min-height: 39px;
-
-    padding: 0;
-
-    border-radius: 9px;
-  }
-
-  .whatsapp-header-btn span {
-    display: none;
-  }
-
-  .whatsapp-header-btn svg {
-    font-size: 17px;
-  }
-
-  .header-icon-btn,
-  .mobile-menu {
-    width: 39px;
-    height: 39px;
-  }
-
-  .wishlist-dropdown {
-    position: fixed;
-
-    top: 66px;
-    left: 12px;
-    right: 12px;
-
-    width: auto;
-
-    max-width: none;
+  .ha-mobile-content {
+    min-height: calc(100vh - 68px);
   }
 }
 
-
-/* =========================================================
-   RESPONSIVE — 380px
-========================================================= */
-
-@media (max-width: 380px) {
-  .noon-header {
-    padding: 0 11px;
+@media (max-width: 560px) {
+  .ha-header {
+    height: 64px;
   }
 
-  .logo-main {
-    font-size: 13px;
+  .ha-header-inner {
+    padding: 0 14px;
   }
 
-  .logo-sub {
-    font-size: 6px;
-
-    letter-spacing: 3px;
+  .ha-logo-main {
+    font-size: 16px;
+    letter-spacing: 2.3px;
   }
 
-  .header-actions {
+  .ha-logo-line {
+    width: 25px;
+    margin: 4px 0 3px;
+  }
+
+  .ha-logo-sub {
+    font-size: 5.5px;
+    letter-spacing: 3.2px;
+  }
+
+  .ha-actions {
     gap: 5px;
   }
 
-  .whatsapp-header-btn,
-  .header-icon-btn,
-  .mobile-menu {
-    width: 36px;
-    height: 36px;
+  .ha-whatsapp,
+  .ha-icon-btn,
+  .ha-menu-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .ha-whatsapp {
+    margin-right: 1px;
+  }
+
+  .ha-wishlist-dropdown {
+    position: fixed;
+    top: 74px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    border-radius: 9px;
+  }
+
+  .ha-mobile-overlay {
+    inset: 64px 0 0;
+  }
+
+  .ha-mobile-content {
+    min-height: calc(100vh - 64px);
+    padding: 23px 18px;
+  }
+
+  .ha-mobile-nav a {
+    min-height: 62px;
+  }
+
+  .ha-mobile-nav a > span {
+    font-size: 15px;
   }
 }
 
+@media (max-width: 370px) {
+  .ha-header-inner {
+    padding: 0 10px;
+  }
+
+  .ha-logo-main {
+    font-size: 14px;
+    letter-spacing: 1.8px;
+  }
+
+  .ha-logo-sub {
+    font-size: 5px;
+    letter-spacing: 2.5px;
+  }
+
+  .ha-actions {
+    gap: 3px;
+  }
+
+  .ha-whatsapp,
+  .ha-icon-btn,
+  .ha-menu-btn {
+    width: 33px;
+    height: 33px;
+  }
+}
 
 /* =========================================================
-   REDUCED MOTION
+   ACCESSIBILITY
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-link,
-  .nav-link::after,
-  .whatsapp-header-btn,
-  .header-icon-btn,
-  .mobile-menu,
-  .mobile-nav a,
-  .wishlist-view-all {
-    transition: none;
-  }
-
-  .wishlist-dropdown,
-  .mobile-nav {
-    animation: none;
+  .ha-header *,
+  .ha-header *::before,
+  .ha-header *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
