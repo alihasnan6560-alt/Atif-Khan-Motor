@@ -1,4 +1,7 @@
+
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+
 import axios from "axios";
 
 import {
@@ -37,6 +40,7 @@ const AvailableStock = () => {
         setCars(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error("Failed to load vehicles:", err);
+
         setError(
           "Unable to load available vehicles right now. Please try again."
         );
@@ -53,10 +57,9 @@ const AvailableStock = () => {
   }, [cars]);
 
   const models = useMemo(() => {
-    const filtered =
-      selectedMake
-        ? cars.filter((car) => car.make === selectedMake)
-        : cars;
+    const filtered = selectedMake
+      ? cars.filter((car) => car.make === selectedMake)
+      : cars;
 
     return [
       ...new Set(filtered.map((car) => car.model).filter(Boolean)),
@@ -434,6 +437,7 @@ const AvailableStock = () => {
           </div>
 
           <div className="stock-cta-actions">
+
             <a
               href={whatsappUrl}
               target="_blank"
@@ -444,13 +448,14 @@ const AvailableStock = () => {
               WhatsApp Us
             </a>
 
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="stock-contact-btn"
             >
               Contact Us
               <FaArrowRight />
-            </a>
+            </Link>
+
           </div>
 
         </div>
